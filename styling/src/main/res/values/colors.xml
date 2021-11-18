@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="politi_blue_dark">#001e3c</color>
+    <color name="politi_blue_light">#244662</color>
+    <color name="politi_yellow">#d4e600</color>
+    <color name="politi_white">#f8f5f1</color>
+    <color name="politi_gray_light">#e1e5e1</color>
+    <color name="politi_black">#000000</color>
+</resources>

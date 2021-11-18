@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="animalFactsViewModel"
+            type="com.example.animalfacts.viewmodel.AnimalFactsViewModel" />
+
+        <variable
+            name="categoryViewModel"
+            type="com.example.facts.viewmodel.FactsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".app.activity.MainActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="?attr/facts_dimension_padding" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            style="?facts_style_tabLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
+        <Button
+            android:id="@+id/buttonCreateCategory"
+            style="?facts_style_buttonBordered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create category"
+            app:layout_constraintBottom_toBottomOf="@id/guideLineBottom"
+            app:layout_constraintEnd_toStartOf="@id/buttonCreateFact"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/buttonCreateFact"
+            style="?facts_style_buttonBordered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create fact"
+            app:layout_constraintBottom_toBottomOf="@id/guideLineBottom"
+            app:layout_constraintEnd_toStartOf="@id/ButtonUpdateAnimalFacts"
+            app:layout_constraintStart_toEndOf="@id/buttonCreateCategory" />
+
+        <Button
+            android:id="@+id/ButtonUpdateAnimalFacts"
+            style="?facts_style_buttonBordered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> animalFactsViewModel.update()}"
+            android:text="Update animal facts"
+            app:layout_constraintBottom_toBottomOf="@id/guideLineBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/buttonCreateFact" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

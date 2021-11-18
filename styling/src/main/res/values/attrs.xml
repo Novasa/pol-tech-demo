@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- region Colors -->
+
+    <attr name="facts_color_accent" format="color" />
+    <attr name="facts_color_background1" format="color" />
+    <attr name="facts_color_background2" format="color" />
+    <attr name="facts_color_textPrimary" format="color" />
+    <attr name="facts_color_textSecondary" format="color" />
+
+    <!-- endregion -->
+
+    <!-- region Dimensions -->
+
+    <attr name="facts_dimension_spacing" format="dimension" />
+    <attr name="facts_dimension_padding" format="dimension" />
+    <attr name="facts_dimension_defaultCornerRadius" format="dimension" />
+
+    <!-- endregion -->
+
+    <!-- region Text appearance -->
+
+    <attr name="facts_textAppearance_header1" format="reference" />
+    <attr name="facts_textAppearance_header2" format="reference" />
+    <attr name="facts_textAppearance_body" format="reference" />
+
+    <!-- endregion -->
+
+    <!-- region Styles -->
+
+    <attr name="facts_style_buttonBordered" format="reference" />
+    <attr name="facts_style_itemCardView" format="reference" />
+    <attr name="facts_style_tabLayout" format="reference" />
+
+    <!-- endregion -->
+
+</resources>

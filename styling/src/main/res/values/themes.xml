@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Facts.Theme.Actual">
+        <item name="colorPrimary">@color/politi_blue_light</item>
+        <item name="colorPrimaryVariant">@color/politi_blue_dark</item>
+        <item name="colorOnPrimary">@color/politi_black</item>
+        <item name="colorSecondary">@color/politi_yellow</item>
+        <item name="colorSecondaryVariant">@color/politi_yellow</item>
+        <item name="colorOnSecondary">@color/politi_white</item>
+
+        <item name="facts_color_accent">@color/politi_yellow</item>
+        <item name="facts_color_background1">@color/politi_white</item>
+        <item name="facts_color_background2">@color/politi_gray_light</item>
+        <item name="facts_color_textPrimary">@color/politi_blue_dark</item>
+        <item name="facts_color_textSecondary">@color/politi_blue_light</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+</resources>

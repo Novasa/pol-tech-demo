@@ -1,0 +1,18 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "facts"
+include ':app'
+include ':dogfacts'
+include ':network'
+include ':animalfacts'
+include ':styling'
+include ':view'
+include ':catfacts'
+include ':imageloading'
+include ':database'
+include ':utility'

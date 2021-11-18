@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="fact"
+            type="com.example.animalfacts.model.AnimalFact" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="?attr/facts_style_itemCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="?attr/facts_dimension_padding">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/factIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/oval_primary"
+                android:padding="16dp"
+                android:src="@{fact.iconResource}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/facts_color_accent"
+                tools:src="@drawable/ic_dog" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{fact.text}"
+                android:textAppearance="?attr/facts_textAppearance_body"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/factIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem/random" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

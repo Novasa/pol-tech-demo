@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Facts" />
+
+    <style name="Facts.Theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="facts_dimension_spacing">8dp</item>
+        <item name="facts_dimension_padding">12dp</item>
+        <item name="facts_dimension_defaultCornerRadius">12dp</item>
+        <item name="facts_textAppearance_body">@style/Facts.TextAppearance.Body</item>
+        <item name="facts_textAppearance_header1">@style/Facts.TextAppearance.Header1</item>
+        <item name="facts_textAppearance_header2">@style/Facts.TextAppearance.Header2</item>
+        <item name="facts_style_itemCardView">@style/Facts.CardView</item>
+        <item name="facts_style_buttonBordered">@style/Facts.Button.Bordered</item>
+        <item name="facts_style_tabLayout">@style/Facts.TabLayout</item>
+    </style>
+
+    <style name="Facts.TextAppearance" />
+
+    <style name="Facts.TextAppearance.Body">
+        <item name="android:textColor">?attr/facts_color_textPrimary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Facts.TextAppearance.Header1">
+        <item name="android:textColor">?attr/facts_color_textPrimary</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Facts.TextAppearance.Header2">
+        <item name="android:textColor">?attr/facts_color_textSecondary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Facts.CardView">
+        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardBackgroundColor">?attr/facts_color_background2</item>
+    </style>
+
+    <style name="Facts.Button">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Facts.Button.Bordered">
+        <item name="android:background">@drawable/selector_button_bordered_background</item>
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:minHeight">46dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+    </style>
+
+    <style name="Facts.TabLayout">
+        <item name="tabIndicatorColor">?colorPrimary</item>
+        <item name="tabTextAppearance">?attr/facts_textAppearance_header2</item>
+        <item name="android:background">?attr/facts_color_background2</item>
+    </style>
+
+</resources>
