@@ -34,10 +34,7 @@ class AnimalFactsFragment : Fragment() {
 
     private val viewModel: AnimalFactsViewModel by activityViewModels()
 
-    @Inject
-    lateinit var service: CatFactsService
-
-     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         val animalFactsAdapter = Adapter()
 
