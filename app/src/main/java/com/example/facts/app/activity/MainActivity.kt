@@ -20,7 +20,10 @@ import com.example.facts.viewmodel.FactsViewModel
 import com.example.facts.app.fragment.CategoriesFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -93,10 +96,11 @@ class MainActivity : AppCompatActivity() {
                     val text = input.text.toString()
 
                     lifecycleScope.launch {
-                        factsViewModel.categoryFlow.collect { categories ->
+                        factsViewModel.categoryFlow.collectLatest { categories ->
                             val selected = HashSet<Int>()
 
                             AlertDialog.Builder(context)
+                                .setTitle("Vælg kategorier")
                                 .setMultiChoiceItems(categories.map { it.category.name }.toTypedArray(), null) { _, which, checked ->
                                     if (checked) {
                                         selected.add(which)
@@ -109,9 +113,15 @@ class MainActivity : AppCompatActivity() {
                                         .filterIndexed { index, _ -> selected.contains(index) }
                                         .map { it.category })
                                 }
+                                .setNegativeButton("Afbryd") { _, _ -> }
+                                .create()
+                                .show()
+
+                            cancel()
                         }
                     }
                 }
+                .setNegativeButton("Afbryd") { _, _ -> }
                 .create()
                 .show()
         }

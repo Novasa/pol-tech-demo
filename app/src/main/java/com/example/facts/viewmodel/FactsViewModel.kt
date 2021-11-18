@@ -40,6 +40,8 @@ class FactsViewModel @Inject constructor(
     }
 
     private fun createFact(fact: Fact, categories: List<Category>) {
-
+        viewModelScope.launch {
+            factsDao.createFact(fact, categories)
+        }
     }
 }

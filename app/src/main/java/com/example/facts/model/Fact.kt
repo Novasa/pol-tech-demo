@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Fact(
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
 
     val text: String

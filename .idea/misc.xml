@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1328125" />
         <entry key="app/src/main/res/layout/cell_category.xml" value="0.335" />
         <entry key="app/src/main/res/layout/cell_category_header.xml" value="0.17592592592592593" />
+        <entry key="app/src/main/res/layout/cell_fact.xml" value="0.2791666666666667" />
         <entry key="app/src/main/res/layout/cell_item.xml" value="0.5072916666666667" />
         <entry key="app/src/main/res/layout/fragment_categories.xml" value="0.14635416666666667" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.17592592592592593" />
