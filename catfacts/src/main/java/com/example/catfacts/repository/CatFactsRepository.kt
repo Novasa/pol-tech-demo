@@ -2,22 +2,19 @@ package com.example.catfacts.repository
 
 import com.example.catfacts.model.CatFact
 import com.example.catfacts.service.CatFactsService
-import com.example.network.repository.FlowRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.example.network.repository.Repository
 import timber.log.Timber
 import javax.inject.Inject
 
 class CatFactsRepository @Inject constructor(
     private val service: CatFactsService
+) : Repository<Int, List<@JvmSuppressWildcards CatFact>> {
 
-) : FlowRepository<List<@JvmSuppressWildcards CatFact>> {
-
-    override val flow: Flow<List<CatFact>> = flow {
+    override suspend fun get(input: Int): List<CatFact> {
         Timber.d("Getting cat facts...")
 
-        val result = service.getCatFacts(10, 200).data
-        Timber.d("Result: $result")
-        emit(result)
+        return service.getCatFacts(input, 200).data.also {
+            Timber.d("Result: $it")
+        }
     }
 }

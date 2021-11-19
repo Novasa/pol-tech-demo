@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (!supportFragmentManager.popBackStackImmediate()) {
-
+            super.onBackPressed()
         }
     }
 }

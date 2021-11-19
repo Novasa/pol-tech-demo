@@ -70,10 +70,16 @@ class MainFragment : Fragment() {
         }
 
         binding.buttonCreateFact.setOnClickListener {
-            parentFragmentManager.commit {
-                setCustomAnimations(R.anim.anim_in_from_bottom, R.anim.anim_out_to_bottom)
-                add(R.id.fragmentContainer, CreateFactFragment::class.java.newInstance())
-                addToBackStack(CreateFactFragment::class.java.name)
+            parentFragmentManager.apply {
+                commit {
+                    setCustomAnimations(R.anim.anim_in_from_bottom, R.anim.anim_scale_out, R.anim.anim_scale_in, R.anim.anim_out_to_bottom)
+                    add(R.id.fragmentContainer, CreateFactFragment::class.java.newInstance())
+                    addToBackStack(CreateFactFragment::class.java.name)
+
+                    fragments.lastOrNull()?.let { top ->
+                        hide(top)
+                    }
+                }
             }
         }
     }.root

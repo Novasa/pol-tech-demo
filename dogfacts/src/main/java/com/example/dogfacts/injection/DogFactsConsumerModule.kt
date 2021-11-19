@@ -5,6 +5,7 @@ import com.example.dogfacts.model.DogImage
 import com.example.dogfacts.repository.DogFactsRepository
 import com.example.dogfacts.repository.DogImageRepository
 import com.example.network.repository.FlowRepository
+import com.example.network.repository.Repository
 import dagger.Binds
 import dagger.Module
 
@@ -16,8 +17,8 @@ import dagger.Module
 interface DogFactsConsumerModule {
 
     @Binds
-    fun bindDogFactsRepository(instance: DogFactsRepository) : FlowRepository<List<DogFact>>
+    fun bindDogFactsRepository(instance: DogFactsRepository) : Repository<Int, List<DogFact>>
 
     @Binds
-    fun bindDogImagesRepository(instance: DogImageRepository) : FlowRepository<DogImage>
+    fun bindDogImagesRepository(instance: DogImageRepository) : FlowRepository<Int, DogImage>
 }

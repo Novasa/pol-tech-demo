@@ -3,10 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.example.facts.databinding.Selectable"/>
+        <import type="com.example.facts.model.Category"/>
+
+        <variable
+            name="viewModel"
+            type="com.example.facts.viewmodel.FactsViewModel" />
 
         <variable
             name="item"
-            type="com.example.facts.databinding.Selectable" />
+            type="Selectable&lt;Category>" />
     </data>
 
     <LinearLayout
@@ -19,7 +25,8 @@
             android:id="@+id/selectableCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="@={item.selected}" />
+            android:checked="@={item.selected}"
+            android:onCheckedChanged="@{(btn, checked) -> viewModel.setCategorySelected(item.item, checked)}"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/selectableText"
