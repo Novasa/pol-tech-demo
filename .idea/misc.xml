@@ -10,14 +10,18 @@
         <entry key="animalfacts/src/main/res/layout/cell_animal_fact.xml" value="0.23072916666666668" />
         <entry key="animalfacts/src/main/res/layout/cell_animal_image.xml" value="0.19722222222222222" />
         <entry key="animalfacts/src/main/res/layout/fragment_animal_facts.xml" value="0.14270833333333333" />
+        <entry key="animalfacts/src/main/res/layout/fragment_create_fact.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/drawable/oval_accent.xml" value="0.5234375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1328125" />
         <entry key="app/src/main/res/layout/cell_category.xml" value="0.335" />
         <entry key="app/src/main/res/layout/cell_category_header.xml" value="0.17592592592592593" />
         <entry key="app/src/main/res/layout/cell_fact.xml" value="0.2791666666666667" />
         <entry key="app/src/main/res/layout/cell_item.xml" value="0.5072916666666667" />
+        <entry key="app/src/main/res/layout/cell_selectable.xml" value="0.35052083333333334" />
         <entry key="app/src/main/res/layout/fragment_categories.xml" value="0.14635416666666667" />
         <entry key="app/src/main/res/layout/fragment_category.xml" value="0.17592592592592593" />
+        <entry key="app/src/main/res/layout/fragment_create_fact.xml" value="0.2708333333333333" />
+        <entry key="app/src/main/res/layout/fragment_main.xml" value="0.35052083333333334" />
         <entry key="styling/src/main/res/drawable/oval_accent.xml" value="0.246875" />
         <entry key="styling/src/main/res/drawable/rounded_rectangle_accent.xml" value="0.16979166666666667" />
         <entry key="styling/src/main/res/drawable/selector_button_bordered_background.xml" value="0.16458333333333333" />

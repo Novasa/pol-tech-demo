@@ -42,7 +42,7 @@ class AnimalFactsViewModel @Inject constructor(
     fun update() {
 
         Timber.d("Updating animal facts...")
-        val asdf: Job = viewModelScope.launch {
+        viewModelScope.launch {
             animalFactsFlow
                 .catch { Timber.e(it, "Error caught") }
                 .collect { _animalFacts.postValue(it) }
