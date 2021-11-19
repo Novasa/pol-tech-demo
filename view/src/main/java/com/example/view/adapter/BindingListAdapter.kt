@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BindingListAdapter<TItem : Any, TViewHolder : RecyclerView.ViewHolder> : ListAdapter<TItem, TViewHolder> {
+abstract class BindingListAdapter<TItem : Any, TViewHolder> : ListAdapter<TItem, TViewHolder>
+        where TViewHolder : RecyclerView.ViewHolder,
+              TViewHolder : BindingViewHolder<*, TItem> {
 
     constructor(diffCallback: DiffUtil.ItemCallback<TItem>) : super(diffCallback)
     constructor(config: AsyncDifferConfig<TItem>) : super(config)
 
     override fun getItemViewType(position: Int): Int = getItemViewType(position, getItem(position))
-    open fun getItemViewType(position: Int, item: TItem) : Int = super.getItemViewType(position)
+    open fun getItemViewType(position: Int, item: TItem): Int = super.getItemViewType(position)
 
     final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TViewHolder {
         return onCreateViewHolder(parent.context, parent, viewType).also { holder ->
@@ -25,21 +27,21 @@ abstract class BindingListAdapter<TItem : Any, TViewHolder : RecyclerView.ViewHo
 
     override fun onViewAttachedToWindow(holder: TViewHolder) {
         super.onViewAttachedToWindow(holder)
-        (holder as? Attachable)?.onAttach()
+        holder.onAttach()
     }
 
     override fun onViewDetachedFromWindow(holder: TViewHolder) {
-        (holder as? Attachable)?.onDetach()
+        holder.onDetach()
         super.onViewDetachedFromWindow(holder)
     }
 
     override fun onBindViewHolder(holder: TViewHolder, position: Int) {
-        (holder as? BindingViewHolder<*, TItem>)?.onBind(position, getItem(position))
+        holder.onBind(position, getItem(position))
     }
 
     override fun onBindViewHolder(holder: TViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.isNotEmpty()) {
-            (holder as? BindingViewHolder<*, TItem>)?.onBind(position, getItem(position), payloads)
+            holder.onBind(position, getItem(position), payloads)
         } else {
             super.onBindViewHolder(holder, position, payloads)
         }

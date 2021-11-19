@@ -3,8 +3,8 @@ package com.example.facts.database.dao
 import androidx.room.*
 import com.example.facts.model.Category
 import com.example.facts.model.Fact
-import com.example.facts.model.query.CategoryWithFacts
-import com.example.facts.model.relation.CategoryFactRelation
+import com.example.facts.database.query.CategoryWithFacts
+import com.example.facts.database.relation.CategoryFactRelation
 import kotlinx.coroutines.flow.Flow
 
 @Dao

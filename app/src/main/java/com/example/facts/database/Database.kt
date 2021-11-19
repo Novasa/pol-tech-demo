@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.example.facts.database.dao.FactsDao
 import com.example.facts.model.Category
 import com.example.facts.model.Fact
-import com.example.facts.model.relation.CategoryFactRelation
+import com.example.facts.database.relation.CategoryFactRelation
 import com.example.typeconverter.DateTimeTypeConverter
 
 @Database(

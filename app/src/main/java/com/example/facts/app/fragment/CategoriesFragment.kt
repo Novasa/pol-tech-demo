@@ -17,7 +17,7 @@ import com.example.facts.databinding.CellCategoryBinding
 import com.example.facts.databinding.CellFactBinding
 import com.example.facts.databinding.FragmentCategoriesBinding
 import com.example.facts.model.Fact
-import com.example.facts.model.query.CategoryWithFacts
+import com.example.facts.database.query.CategoryWithFacts
 import com.example.facts.viewmodel.FactsViewModel
 import com.example.view.adapter.BindingListAdapter
 import com.example.view.adapter.BindingViewHolder
