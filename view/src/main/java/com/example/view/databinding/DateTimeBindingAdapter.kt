@@ -12,6 +12,7 @@ import javax.inject.Singleton
 
 @Singleton
 class DateTimeBindingAdapter @Inject constructor(
+
     @FormatterDate
     private val dateFormatter: DateTimeFormatter,
 

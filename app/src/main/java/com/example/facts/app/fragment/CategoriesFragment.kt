@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
@@ -33,7 +34,7 @@ import java.lang.IllegalArgumentException
 @AndroidEntryPoint
 class CategoriesFragment : Fragment() {
 
-    val factsViewModel: FactsViewModel by viewModels()
+    val factsViewModel: FactsViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return FragmentCategoriesBinding.inflate(inflater, container, false).root.apply {
@@ -83,10 +84,12 @@ class CategoriesFragment : Fragment() {
 
         override fun getItemViewType(position: Int): Int = getItem(position).viewType
 
-        override fun onCreateViewHolder(context: Context, parent: ViewGroup, viewType: Int) = when (viewType) {
-            ViewTypes.CATEGORY -> CategoryViewHolder(CellCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-            ViewTypes.FACT -> FactViewHolder(CellFactBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-            else -> throw NotImplementedError()
+        override fun onCreateViewHolder(context: Context, parent: ViewGroup, viewType: Int) = LayoutInflater.from(parent.context).let { inflater ->
+            when (viewType) {
+                ViewTypes.CATEGORY -> CategoryViewHolder(CellCategoryBinding.inflate(inflater, parent, false))
+                ViewTypes.FACT -> FactViewHolder(CellFactBinding.inflate(inflater, parent, false))
+                else -> throw NotImplementedError()
+            }
         }
 
         override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {

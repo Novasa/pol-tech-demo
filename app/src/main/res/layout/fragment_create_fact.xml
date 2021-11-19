@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.facts.viewmodel.FactsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?facts_color_background1">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/factHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?facts_dimension_padding"
+            android:layout_marginBottom="?facts_dimension_spacing"
+            android:text="Opret fact"
+            android:textAppearance="?facts_textAppearance_header1"
+            app:layout_constraintBottom_toTopOf="@id/factInputText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/factInputText"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="?facts_dimension_padding"
+            android:layout_marginEnd="?facts_dimension_padding"
+            android:layout_marginBottom="?facts_dimension_padding"
+            android:gravity="top|start"
+            android:hint="Indtast tekst"
+            app:layout_constraintBottom_toTopOf="@id/factCategories"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/factHeader" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/factCategories"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/factInputText" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/factButtonCreate"
+            style="?facts_style_buttonBordered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="?facts_dimension_padding"
+            android:text="Opret"
+            android:onClick="@{() -> viewmodel.createFact(factInputText.text, factCategories.selectedItems)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
