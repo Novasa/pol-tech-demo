@@ -64,9 +64,7 @@ class MainFragment : Fragment() {
             AlertDialog.Builder(context)
                 .setTitle("Ny kategori")
                 .setView(input)
-                .setPositiveButton("OK") { _, _ ->
-                    factsViewModel.createCategory(input.text.toString())
-                }
+                .setPositiveButton("OK") { _, _ -> factsViewModel.createCategory(input.text.toString()) }
                 .create()
                 .show()
         }
@@ -77,46 +75,6 @@ class MainFragment : Fragment() {
                 add(R.id.fragmentContainer, CreateFactFragment::class.java.newInstance())
                 addToBackStack(CreateFactFragment::class.java.name)
             }
-//            val input = EditText(context).apply {
-//                inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
-//                hint = "Indtast tekst"
-//            }
-//
-//            AlertDialog.Builder(context)
-//                .setTitle("Ny fact")
-//                .setView(input)
-//                .setPositiveButton("OK") { _, _ ->
-//                    val text = input.text.toString()
-//
-//                    lifecycleScope.launch {
-//                        factsViewModel.categoryFlow.collectLatest { categories ->
-//                            val selected = HashSet<Int>()
-//
-//                            AlertDialog.Builder(context)
-//                                .setTitle("Vælg kategorier")
-//                                .setMultiChoiceItems(categories.map { it.category.name }.toTypedArray(), null) { _, which, checked ->
-//                                    if (checked) {
-//                                        selected.add(which)
-//                                    } else {
-//                                        selected.remove(which)
-//                                    }
-//                                }
-//                                .setPositiveButton("OK") { _, _ ->
-//                                    factsViewModel.createFact(text, categories
-//                                        .filterIndexed { index, _ -> selected.contains(index) }
-//                                        .map { it.category })
-//                                }
-//                                .setNegativeButton("Afbryd") { _, _ -> }
-//                                .create()
-//                                .show()
-//
-//                            cancel()
-//                        }
-//                    }
-//                }
-//                .setNegativeButton("Afbryd") { _, _ -> }
-//                .create()
-//                .show()
         }
     }.root
 }

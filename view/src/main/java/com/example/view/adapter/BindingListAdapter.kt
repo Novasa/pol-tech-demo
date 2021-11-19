@@ -2,14 +2,13 @@ package com.example.view.adapter
 
 import android.content.Context
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BindingListAdapter<TItem : Any, TViewHolder> : ListAdapter<TItem, TViewHolder>
-        where TViewHolder : RecyclerView.ViewHolder,
-              TViewHolder : BindingViewHolder<*, TItem> {
+abstract class BindingListAdapter<TItem : Any, TViewHolder : RecyclerView.ViewHolder> : ListAdapter<TItem, TViewHolder> {
 
     constructor(diffCallback: DiffUtil.ItemCallback<TItem>) : super(diffCallback)
     constructor(config: AsyncDifferConfig<TItem>) : super(config)
@@ -27,21 +26,21 @@ abstract class BindingListAdapter<TItem : Any, TViewHolder> : ListAdapter<TItem,
 
     override fun onViewAttachedToWindow(holder: TViewHolder) {
         super.onViewAttachedToWindow(holder)
-        holder.onAttach()
+        (holder as? Attachable)?.onAttach()
     }
 
     override fun onViewDetachedFromWindow(holder: TViewHolder) {
-        holder.onDetach()
+        (holder as? Attachable)?.onDetach()
         super.onViewDetachedFromWindow(holder)
     }
 
     override fun onBindViewHolder(holder: TViewHolder, position: Int) {
-        holder.onBind(position, getItem(position))
+        (holder as? BindingViewHolder<*, TItem>)?.onBind(position, getItem(position))
     }
 
     override fun onBindViewHolder(holder: TViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.isNotEmpty()) {
-            holder.onBind(position, getItem(position), payloads)
+            (holder as? BindingViewHolder<*, TItem>)?.onBind(position, getItem(position), payloads)
         } else {
             super.onBindViewHolder(holder, position, payloads)
         }

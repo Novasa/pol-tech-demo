@@ -102,7 +102,8 @@ class CategoriesFragment : Fragment() {
             super.onViewDetachedFromWindow(holder)
         }
 
-        abstract class ViewHolder<TBinding : ViewDataBinding, TItem : Any>(override val binding: TBinding) : RecyclerView.ViewHolder(binding.root), BindingViewHolder<TBinding, TItem>
+        /** Base ViewHolder class to minimize extensions */
+        abstract class ViewHolder<TBinding : ViewDataBinding, TItem : AdapterItem>(override val binding: TBinding) : RecyclerView.ViewHolder(binding.root), BindingViewHolder<TBinding, TItem>
 
         class CategoryViewHolder(binding: CellCategoryBinding) : ViewHolder<CellCategoryBinding, CategoryAdapterItem>(binding) {
             override fun onBind(position: Int, binding: CellCategoryBinding, item: CategoryAdapterItem) {

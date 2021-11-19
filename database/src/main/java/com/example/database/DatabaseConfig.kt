@@ -6,5 +6,6 @@ class DatabaseConfig<TDatabase : RoomDatabase>(
     val cls: Class<TDatabase>,
     val name: String,
     val passphrase: CharArray,
+    val debug: Boolean,
     val setup: (RoomDatabase.Builder<TDatabase>.() -> Unit)? = null
 )

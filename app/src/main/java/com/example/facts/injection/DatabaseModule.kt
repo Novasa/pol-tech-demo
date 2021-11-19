@@ -2,6 +2,7 @@ package com.example.facts.injection
 
 import com.example.database.DatabaseConfig
 import com.example.database.DatabaseFactory
+import com.example.facts.BuildConfig
 import com.example.facts.database.Database
 import com.example.facts.database.dao.FactsDao
 import com.example.injection.DatabaseConsumerModule
@@ -26,7 +27,7 @@ class DatabaseModule {
     @Provides
     fun provideDatabase(factory: DatabaseFactory, dateTimeTypeConverter: DateTimeTypeConverter): Database {
         val passphrase = "test1234".toCharArray()
-        val config = DatabaseConfig(Database::class.java, Database.NAME, passphrase) {
+        val config = DatabaseConfig(Database::class.java, Database.NAME, passphrase, BuildConfig.DEBUG) {
             addTypeConverter(dateTimeTypeConverter)
         }
 
