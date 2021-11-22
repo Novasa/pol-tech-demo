@@ -11,6 +11,8 @@ import com.example.dogfacts.model.DogFact
 import com.example.dogfacts.model.DogImage
 import com.example.network.repository.FlowRepository
 import com.example.network.repository.Repository
+import com.example.network.repository.mapResult
+import com.example.utility.state.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -60,11 +62,13 @@ class AnimalFactsViewModel @Inject constructor(
         Timber.d("Loading more animal images...")
         viewModelScope.launch {
             dogImageRepository.flow(3)
-                .onEach { Timber.d("Loaded image: $it") }
-                .map { value -> AnimalImage(value.url) }
+                .onEach { Timber.d("Image flow: $it") }
+                .mapResult { AnimalImage(it.url) }
                 .catch { Timber.e(it) }
                 .collect {
-                    _dogImages.value += it
+                    if (it is Result.Success) {
+                        _dogImages.value += it.value
+                    }
                 }
         }
     }

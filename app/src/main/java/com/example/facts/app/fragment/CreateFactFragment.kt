@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,10 +16,9 @@ import com.example.facts.databinding.FragmentCreateFactBinding
 import com.example.facts.databinding.Selectable
 import com.example.facts.model.Category
 import com.example.facts.viewmodel.FactsViewModel
-import com.example.utility.state.State
+import com.example.utility.state.Result
 import com.example.view.adapter.BindingListAdapter
 import com.example.view.adapter.BindingViewHolder
-import com.example.view.extension.collectToListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -57,7 +55,7 @@ class CreateFactFragment : Fragment() {
             lifecycleScope.launchWhenStarted {
                 factsViewModel.createFactStateFlow.collectLatest { state ->
                     when (state) {
-                        State.SUCCESS -> parentFragmentManager.popBackStack()
+                        is Result.Complete -> parentFragmentManager.popBackStack()
                         else -> {}
                     }
                 }
