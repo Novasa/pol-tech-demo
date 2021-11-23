@@ -67,7 +67,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation "androidx.fragment:fragment-ktx:1.3.6"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
 
     // Room annotation processor can not be implemented through the database module dependency
     kapt "androidx.room:room-compiler:$versions.room"
