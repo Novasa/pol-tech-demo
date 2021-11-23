@@ -16,7 +16,7 @@ import com.example.facts.databinding.FragmentCreateFactBinding
 import com.example.facts.databinding.Selectable
 import com.example.facts.model.Category
 import com.example.facts.viewmodel.FactsViewModel
-import com.example.utility.state.Result
+import com.example.utility.state.Data
 import com.example.view.adapter.BindingListAdapter
 import com.example.view.adapter.BindingViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,7 +55,7 @@ class CreateFactFragment : Fragment() {
             lifecycleScope.launchWhenStarted {
                 factsViewModel.createFactStateFlow.collectLatest { state ->
                     when (state) {
-                        is Result.Complete -> parentFragmentManager.popBackStack()
+                        is Data.Complete -> parentFragmentManager.popBackStack()
                         else -> {}
                     }
                 }

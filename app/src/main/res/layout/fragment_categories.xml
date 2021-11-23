@@ -2,6 +2,4 @@
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/facts_color_background1"
-    android:clipToPadding="false"
-    android:padding="?attr/facts_dimension_padding"/>
+    android:background="?attr/facts_color_background1"/>

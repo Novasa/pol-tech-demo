@@ -1,5 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="Facts" />
+
+    <style name="Facts.Theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="facts_dimension_spacing">8dp</item>
+        <item name="facts_dimension_padding">12dp</item>
+        <item name="facts_dimension_defaultCornerRadius">12dp</item>
+        <item name="facts_textAppearance_body">@style/Facts.TextAppearance.Body</item>
+        <item name="facts_textAppearance_header1">@style/Facts.TextAppearance.Header1</item>
+        <item name="facts_textAppearance_header2">@style/Facts.TextAppearance.Header2</item>
+        <item name="facts_style_itemCardView">@style/Facts.CardView</item>
+        <item name="facts_style_buttonBordered">@style/Facts.Button.Bordered</item>
+        <item name="facts_style_tabLayout">@style/Facts.TabLayout</item>
+    </style>
+
     <style name="Facts.Theme.Actual">
         <item name="colorPrimary">@color/politi_blue_light</item>
         <item name="colorPrimaryVariant">@color/politi_blue_dark</item>

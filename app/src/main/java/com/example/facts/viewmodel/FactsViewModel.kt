@@ -5,7 +5,7 @@ import com.example.facts.model.Category
 import com.example.facts.database.dao.FactsDao
 import com.example.facts.model.Fact
 import com.example.facts.database.query.CategoryWithFacts
-import com.example.utility.state.Result
+import com.example.utility.state.Data
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,7 +39,7 @@ class FactsViewModel @Inject constructor(
     }
 
     private val selectedCategories = HashSet<Category>()
-    private val _createFactStateFlow = MutableStateFlow<Result.State>(Result.Empty)
+    private val _createFactStateFlow = MutableStateFlow<Data.State>(Data.Empty)
     val createFactStateFlow = _createFactStateFlow.asStateFlow()
 
     fun setCategorySelected(category: Category, selected: Boolean) {
@@ -51,13 +51,13 @@ class FactsViewModel @Inject constructor(
     }
 
     fun createFact(text: String) {
-        _createFactStateFlow.value = Result.Progress
+        _createFactStateFlow.value = Data.Progress
         viewModelScope.launch {
             factsDao.createFact(Fact(text = text), selectedCategories.toList())
-            _createFactStateFlow.value = Result.Complete
+            _createFactStateFlow.value = Data.Complete
 
             selectedCategories.clear()
-            _createFactStateFlow.value = Result.Empty
+            _createFactStateFlow.value = Data.Empty
         }
     }
 }

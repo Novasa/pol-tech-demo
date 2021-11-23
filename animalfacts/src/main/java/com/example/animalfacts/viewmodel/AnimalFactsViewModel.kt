@@ -9,12 +9,11 @@ import com.example.animalfacts.model.AnimalImage
 import com.example.catfacts.model.CatFact
 import com.example.dogfacts.model.DogFact
 import com.example.dogfacts.model.DogImage
-import com.example.network.repository.FlowRepository
+import com.example.network.repository.FlowDataSource
 import com.example.network.repository.Repository
-import com.example.network.repository.mapResult
-import com.example.utility.state.Result
+import com.example.utility.state.Data
+import com.example.utility.state.mapResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ import javax.inject.Inject
 class AnimalFactsViewModel @Inject constructor(
     private val catFactsRepository: Repository<Int, List<CatFact>>,
     private val dogFactsRepository: Repository<Int, List<DogFact>>,
-    private val dogImageRepository: FlowRepository<Int, DogImage>,
+    private val dogImageDataSource: FlowDataSource<Int, DogImage>,
 ) : ViewModel() {
 
     private val _animalFacts = MutableStateFlow<List<AnimalFact>>(emptyList())
@@ -61,12 +60,12 @@ class AnimalFactsViewModel @Inject constructor(
     fun loadMoreAnimalImages() {
         Timber.d("Loading more animal images...")
         viewModelScope.launch {
-            dogImageRepository.flow(3)
+            dogImageDataSource.flow(3)
                 .onEach { Timber.d("Image flow: $it") }
                 .mapResult { AnimalImage(it.url) }
                 .catch { Timber.e(it) }
                 .collect {
-                    if (it is Result.Success) {
+                    if (it is Data.Success) {
                         _dogImages.value += it.value
                     }
                 }
