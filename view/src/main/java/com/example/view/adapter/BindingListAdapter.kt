@@ -2,6 +2,7 @@ package com.example.view.adapter
 
 import android.content.Context
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,7 +14,7 @@ abstract class BindingListAdapter<TItem : Any, TViewHolder : RecyclerView.ViewHo
     constructor(config: AsyncDifferConfig<TItem>) : super(config)
 
     override fun getItemViewType(position: Int): Int = getItemViewType(position, getItem(position))
-    open fun getItemViewType(position: Int, item: TItem) : Int = super.getItemViewType(position)
+    open fun getItemViewType(position: Int, item: TItem): Int = super.getItemViewType(position)
 
     final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TViewHolder {
         return onCreateViewHolder(parent.context, parent, viewType).also { holder ->

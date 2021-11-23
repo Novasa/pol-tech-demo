@@ -3,7 +3,7 @@
     <item android:state_pressed="true">
         <layer-list>
             <item android:drawable="@drawable/rounded_rectangle_accent" />
-            <item android:drawable="?selectableItemBackground" />
+            <item android:drawable="?selectableItemBackgroundBorderless" />
         </layer-list>
     </item>
     <item android:drawable="@drawable/rounded_rectangle_accent" />

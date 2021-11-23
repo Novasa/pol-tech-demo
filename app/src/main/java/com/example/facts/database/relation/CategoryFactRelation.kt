@@ -1,4 +1,4 @@
-package com.example.facts.model.relation
+package com.example.facts.database.relation
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -22,7 +22,7 @@ import com.example.facts.model.Fact
             parentColumns = ["id"],
             childColumns = ["factId"],
             onDelete = ForeignKey.CASCADE
-        ),
+        )
     ]
 )
 data class CategoryFactRelation(

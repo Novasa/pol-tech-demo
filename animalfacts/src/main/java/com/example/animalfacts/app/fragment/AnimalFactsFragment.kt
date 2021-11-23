@@ -23,9 +23,11 @@ import com.example.view.adapter.BindingListAdapter
 import com.example.view.adapter.BindingViewHolder
 import com.example.view.adapter.CoroutineViewHolder
 import com.example.view.adapter.RecyclerViewItemSpacing
+import com.example.view.extension.collectToListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.launch
 import okhttp3.internal.addHeaderLenient
 import javax.inject.Inject
 
@@ -38,8 +40,8 @@ class AnimalFactsFragment : Fragment() {
 
         val animalFactsAdapter = Adapter()
 
-        viewModel.animalFacts.observe(viewLifecycleOwner) {
-            animalFactsAdapter.submitList(it)
+        lifecycleScope.launchWhenStarted {
+            viewModel.animalFacts.collectToListAdapter(animalFactsAdapter)
         }
 
         return FragmentAnimalFactsBinding.inflate(inflater, container, false).apply {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,6 +20,7 @@ import com.example.view.adapter.BindingListAdapter
 import com.example.view.adapter.BindingViewHolder
 import com.example.view.adapter.CoroutineViewHolder
 import com.example.view.adapter.RecyclerViewItemSpacing
+import com.example.view.extension.collectToListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -39,8 +41,8 @@ class AnimalImagesFragment : Fragment() {
             }
         }
 
-        viewModel.dogImages.observe(viewLifecycleOwner) {
-            animalImagesAdapter.submitList(it)
+        lifecycleScope.launchWhenStarted {
+            viewModel.dogImages.collectToListAdapter(animalImagesAdapter)
         }
 
         return binding.root

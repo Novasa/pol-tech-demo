@@ -1,7 +1,5 @@
 package com.example.animalfacts.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.animalfacts.R
@@ -12,70 +10,68 @@ import com.example.catfacts.model.CatFact
 import com.example.dogfacts.model.DogFact
 import com.example.dogfacts.model.DogImage
 import com.example.network.repository.FlowRepository
+import com.example.network.repository.Repository
+import com.example.network.repository.mapResult
+import com.example.utility.state.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
 class AnimalFactsViewModel @Inject constructor(
-    private val catFactsRepository: FlowRepository<List<CatFact>>,
-    private val dogFactsRepository: FlowRepository<List<DogFact>>,
-    private val dogImageRepository: FlowRepository<DogImage>,
+    private val catFactsRepository: Repository<Int, List<CatFact>>,
+    private val dogFactsRepository: Repository<Int, List<DogFact>>,
+    private val dogImageRepository: FlowRepository<Int, DogImage>,
 ) : ViewModel() {
 
-    private val _animalFacts = MutableLiveData<List<AnimalFact>>()
-    val animalFacts: LiveData<List<AnimalFact>>
-        get() = _animalFacts
+    private val _animalFacts = MutableStateFlow<List<AnimalFact>>(emptyList())
+    val animalFacts = _animalFacts.asStateFlow()
 
-    private val _dogImages = MutableLiveData<List<AnimalImage>>()
-    val dogImages: LiveData<List<AnimalImage>>
-        get() = _dogImages.also {
-            if (it.value == null) {
+    private val _dogImages = MutableStateFlow<List<AnimalImage>>(emptyList())
+    val dogImages: StateFlow<List<AnimalImage>>
+        get() = _dogImages.asStateFlow().apply {
+            if (value.isEmpty()) {
                 loadMoreAnimalImages()
             }
         }
 
-    @ExperimentalCoroutinesApi
     fun update() {
 
         Timber.d("Updating animal facts...")
         viewModelScope.launch {
-            animalFactsFlow
-                .catch { Timber.e(it, "Error caught") }
-                .collect { _animalFacts.postValue(it) }
+
+            val dogFacts = async {
+                dogFactsRepository.get(10)
+                    .map { it.toAnimalFact() }
+            }
+
+            val catFacts = async {
+                catFactsRepository.get(10)
+                    .map { it.toAnimalFact() }
+            }
+
+            _animalFacts.value += (dogFacts.await() + catFacts.await()).shuffled()
         }
     }
 
     fun loadMoreAnimalImages() {
         Timber.d("Loading more animal images...")
         viewModelScope.launch {
-            dogImageRepository.flow
-                .onEach { Timber.d("Loaded image: $it") }
-                .map { value -> AnimalImage(value.url) }
+            dogImageRepository.flow(3)
+                .onEach { Timber.d("Image flow: $it") }
+                .mapResult { AnimalImage(it.url) }
                 .catch { Timber.e(it) }
-                .collect { image ->
-                    _dogImages.postValue((_dogImages.value ?: emptyList()) + image)
+                .collect {
+                    if (it is Result.Success) {
+                        _dogImages.value += it.value
+                    }
                 }
         }
     }
-
-    private val animalFactsFlow: Flow<List<AnimalFact>>
-        get() = dogFactsFlow.zip(catFactsFlow) { dogFacts, catFacts ->
-            (dogFacts + catFacts).shuffled()
-        }
-
-    private val dogFactsFlow: Flow<List<AnimalFact>>
-        get() = dogFactsRepository.flow.map { dogFacts ->
-            dogFacts.map { it.toAnimalFact() }
-        }.catch { emit(emptyList()) }
-
-    private val catFactsFlow: Flow<List<AnimalFact>>
-        get() = catFactsRepository.flow.map { catFacts ->
-            catFacts.map { it.toAnimalFact() }
-        }.catch { emit(emptyList()) }
 
     private fun DogFact.toAnimalFact() = AnimalFact(Animal.DOG, fact, R.drawable.ic_dog)
     private fun CatFact.toAnimalFact() = AnimalFact(Animal.CAT, fact, R.drawable.ic_cat)

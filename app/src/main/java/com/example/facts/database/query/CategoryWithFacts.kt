@@ -1,11 +1,11 @@
-package com.example.facts.model.query
+package com.example.facts.database.query
 
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.example.facts.model.Category
 import com.example.facts.model.Fact
-import com.example.facts.model.relation.CategoryFactRelation
+import com.example.facts.database.relation.CategoryFactRelation
 
 
 data class CategoryWithFacts(
