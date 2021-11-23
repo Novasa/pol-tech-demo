@@ -1,5 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/facts_color_background1"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoriesRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?attr/facts_color_background1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/categoriesFabAddCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="?facts_dimension_padding"
+            android:backgroundTint="?colorPrimary"
+            android:src="@drawable/ic_category"
+            android:tint="?colorAccent"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@id/categoriesFabAdd"
+            app:layout_constraintEnd_toEndOf="@id/categoriesFabAdd"
+            app:layout_constraintStart_toStartOf="@id/categoriesFabAdd" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/categoriesFabAddFact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="?facts_dimension_padding"
+            android:backgroundTint="?colorPrimary"
+            android:src="@drawable/ic_fact"
+            android:tint="?colorAccent"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toTopOf="@id/categoriesFabAddCategory"
+            app:layout_constraintEnd_toEndOf="@id/categoriesFabAdd"
+            app:layout_constraintStart_toStartOf="@id/categoriesFabAdd" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/categoriesFabAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="?facts_dimension_padding"
+            android:layout_marginBottom="?facts_dimension_padding"
+            android:backgroundTint="?colorPrimary"
+            android:src="@drawable/ic_add"
+            android:tint="?colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

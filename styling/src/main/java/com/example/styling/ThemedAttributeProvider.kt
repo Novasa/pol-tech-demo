@@ -1,35 +1,17 @@
 package com.example.styling
 
-import android.content.Context
-import android.util.TypedValue
-import androidx.annotation.AnyRes
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
-import androidx.core.content.ContextCompat
-import javax.inject.Inject
 
-class ThemedAttributeProvider @Inject constructor(
-    private val context: Context
-) {
-
-    @AnyRes
-    fun getThemedAttribute(@AttrRes resId: Int): Int = TypedValue().also {
-        context.theme.resolveAttribute(resId, it, true)
-    }.resourceId
+interface ThemedAttributeProvider {
 
     @ColorInt
-    fun getColor(@AttrRes resId: Int) = getThemedAttribute(resId).let {
-        ContextCompat.getColor(context, it)
-    }
+    fun getColor(@AttrRes resId: Int): Int
 
     @Dimension
-    fun getDimensionF(@AttrRes resId: Int) = getThemedAttribute(resId).let {
-        context.resources.getDimension(it)
-    }
+    fun getDimensionF(@AttrRes resId: Int): Float
 
     @Dimension
-    fun getDimensionP(@AttrRes resId: Int) = getThemedAttribute(resId).let {
-        context.resources.getDimensionPixelSize(it)
-    }
+    fun getDimensionP(@AttrRes resId: Int): Int
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@id/categoriesFragment"
+        android:icon="@drawable/ic_cat"
+        android:title="@string/main_page_categories" />
+    <item
+        android:id="@id/animalFactsFragment"
+        android:icon="@drawable/ic_cat"
+        android:title="@string/main_page_animal_facts" />
+    <item
+        android:id="@id/animalImagesFragment"
+        android:icon="@drawable/ic_dog"
+        android:title="@string/main_page_images" />
+</menu>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/categoriesFragment">
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.facts.app.fragment.CategoriesFragment"
+        android:label="CategoriesFragment">
+        <action
+            android:id="@+id/action_categoriesFragment_to_createFactFragment"
+            app:destination="@id/createFactFragment"
+            app:enterAnim="@anim/anim_in_from_bottom"
+            app:exitAnim="@anim/anim_scale_out"
+            app:popEnterAnim="@anim/anim_scale_in"
+            app:popExitAnim="@anim/anim_out_to_bottom"
+            app:popUpTo="@id/categoriesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/animalFactsFragment"
+        android:name="com.example.animalfacts.app.fragment.AnimalFactsFragment"
+        android:label="AnimalFactsFragment" />
+
+    <fragment
+        android:id="@+id/animalImagesFragment"
+        android:name="com.example.animalfacts.app.fragment.AnimalImagesFragment"
+        android:label="AnimalImagesFragment" />
+    <fragment
+        android:id="@+id/createFactFragment"
+        android:name="com.example.facts.app.fragment.CreateFactFragment"
+        android:label="CreateFactFragment" />
+</navigation>

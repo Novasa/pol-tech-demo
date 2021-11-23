@@ -2,57 +2,136 @@ package com.example.facts.app.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.facts.model.Category
+import com.example.facts.R
+import com.example.facts.database.query.CategoryWithFacts
 import com.example.facts.databinding.CellCategoryBinding
 import com.example.facts.databinding.CellFactBinding
 import com.example.facts.databinding.FragmentCategoriesBinding
+import com.example.facts.model.Category
 import com.example.facts.model.Fact
-import com.example.facts.database.query.CategoryWithFacts
 import com.example.facts.viewmodel.FactsViewModel
+import com.example.styling.ThemedAttributeProvider
 import com.example.view.adapter.BindingListAdapter
 import com.example.view.adapter.BindingViewHolder
 import com.example.view.adapter.RecyclerViewItemSpacing
 import com.example.view.extension.collectToListAdapter
+import com.example.view.extension.updateConstraints
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.lang.IllegalArgumentException
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CategoriesFragment : Fragment() {
 
-    val factsViewModel: FactsViewModel by activityViewModels()
+    private lateinit var binding: FragmentCategoriesBinding
+    private val factsViewModel: FactsViewModel by activityViewModels()
+
+    @Inject
+    lateinit var themedAttributeProvider: ThemedAttributeProvider
+
+    private var fabsExpanded = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return FragmentCategoriesBinding.inflate(inflater, container, false).root.apply {
-            adapter = Adapter(factsViewModel).also { adapter ->
-                lifecycleScope.launch {
-                    factsViewModel.categoryFlow
-                        .map { categories ->
-                            categories.flatMap { category ->
-                                listOf(CategoryAdapterItem(category)) + category.facts.map { FactAdapterItem(it, category.category) }
+        binding = FragmentCategoriesBinding.inflate(inflater, container, false).also { binding ->
+            binding.categoriesRecyclerView.apply {
+                adapter = Adapter(factsViewModel).also { adapter ->
+                    lifecycleScope.launch {
+                        factsViewModel.categoryFlow
+                            .map { categories ->
+                                categories.flatMap { category ->
+                                    listOf(CategoryAdapterItem(category)) + category.facts.map { FactAdapterItem(it, category.category) }
+                                }
                             }
-                        }
-                        .onEach { list -> Timber.d("$list") }
-                        .collectToListAdapter(adapter)
+                            .onEach { list -> Timber.d("$list") }
+                            .collectToListAdapter(adapter)
+                    }
                 }
+                layoutManager = LinearLayoutManager(inflater.context)
+                addItemDecoration(RecyclerViewItemSpacing(20))
+
             }
-            layoutManager = LinearLayoutManager(inflater.context)
-            addItemDecoration(RecyclerViewItemSpacing(20))
+
+            binding.categoriesFabAdd.setOnClickListener {
+                toggleFabsExpanded()
+            }
+
+            binding.categoriesFabAddCategory.setOnClickListener {
+
+                val input = EditText(binding.root.context).apply {
+                    inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+                    hint = "Indtast navn"
+                }
+
+                AlertDialog.Builder(binding.root.context)
+                    .setTitle("Ny kategori")
+                    .setView(input)
+                    .setPositiveButton("OK") { _, _ -> factsViewModel.createCategory(input.text.toString()) }
+                    .create()
+                    .show()
+            }
+
+            binding.categoriesFabAddFact.setOnClickListener {
+                findNavController()
+                    .navigate(CategoriesFragmentDirections.actionCategoriesFragmentToCreateFactFragment())
+            }
         }
+
+        collapseFabs()
+
+        return binding.root
+    }
+
+    private fun toggleFabsExpanded() {
+        if (fabsExpanded) {
+            collapseFabs()
+        } else {
+            expandFabs()
+        }
+    }
+
+    private fun expandFabs() {
+        val spacing = themedAttributeProvider.getDimensionP(R.attr.facts_dimension_spacing)
+        (binding.root as ConstraintLayout).updateConstraints { options ->
+            clear(binding.categoriesFabAddCategory.id, ConstraintSet.TOP)
+            clear(binding.categoriesFabAddFact.id, ConstraintSet.TOP)
+            connect(binding.categoriesFabAddCategory.id, ConstraintSet.BOTTOM, binding.categoriesFabAdd.id, ConstraintSet.TOP, spacing)
+            connect(binding.categoriesFabAddFact.id, ConstraintSet.BOTTOM, binding.categoriesFabAddCategory.id, ConstraintSet.TOP, spacing)
+
+            options.animate = isResumed
+        }
+
+        fabsExpanded = true
+    }
+
+    private fun collapseFabs() {
+        (binding.root as ConstraintLayout).updateConstraints { options ->
+            clear(binding.categoriesFabAddCategory.id, ConstraintSet.BOTTOM)
+            clear(binding.categoriesFabAddFact.id, ConstraintSet.BOTTOM)
+            centerVertically(binding.categoriesFabAddCategory.id, binding.categoriesFabAdd.id, ConstraintSet.TOP, 0, binding.categoriesFabAdd.id, ConstraintSet.BOTTOM, 0, .5f)
+            centerVertically(binding.categoriesFabAddFact.id, binding.categoriesFabAdd.id, ConstraintSet.TOP, 0, binding.categoriesFabAdd.id, ConstraintSet.BOTTOM, 0, .5f)
+
+            options.animate = isResumed
+        }
+        fabsExpanded = false
     }
 
     object CategoryDiffCallback : DiffUtil.ItemCallback<AdapterItem>() {
