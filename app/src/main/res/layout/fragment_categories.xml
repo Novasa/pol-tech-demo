@@ -3,10 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="nav"
+            type="androidx.navigation.NavController" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/categoriesContentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

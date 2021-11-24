@@ -8,6 +8,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.facts.R
 import com.example.facts.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -19,14 +20,12 @@ class MainActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         binding.lifecycleOwner = this
 
-        (supportFragmentManager.findFragmentById(R.id.mainFragmentContainerView) as? NavHostFragment)?.let {
-            NavigationUI.setupWithNavController(binding.mainBottomNavigation, it.navController)
-        }
-    }
+        (supportFragmentManager.findFragmentById(R.id.mainFragmentContainerView) as? NavHostFragment)?.navController?.let { navController ->
+            NavigationUI.setupWithNavController(binding.mainBottomNavigation, navController)
 
-    override fun onBackPressed() {
-        if (!supportFragmentManager.popBackStackImmediate()) {
-            super.onBackPressed()
+            navController.addOnDestinationChangedListener { controller, destination, arguments ->
+                Timber.d("OnDestinationChanged: $destination, arguments: $arguments")
+            }
         }
     }
 }

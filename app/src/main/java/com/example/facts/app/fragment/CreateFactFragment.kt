@@ -35,6 +35,7 @@ class CreateFactFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return FragmentCreateFactBinding.inflate(inflater, container, false).also { binding ->
+            binding.lifecycleOwner = viewLifecycleOwner
             binding.viewModel = factsViewModel
 
             binding.factCategories.layoutManager = LinearLayoutManager(inflater.context)

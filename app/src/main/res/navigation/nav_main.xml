@@ -16,7 +16,8 @@
             app:exitAnim="@anim/anim_scale_out"
             app:popEnterAnim="@anim/anim_scale_in"
             app:popExitAnim="@anim/anim_out_to_bottom"
-            app:popUpTo="@id/categoriesFragment" />
+            app:popUpTo="@id/categoriesFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment

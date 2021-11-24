@@ -3,22 +3,23 @@ package com.example.facts.app.fragment
 import android.content.Context
 import android.os.Bundle
 import android.text.InputType
+import android.transition.Scene
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.facts.R
 import com.example.facts.database.query.CategoryWithFacts
 import com.example.facts.databinding.CellCategoryBinding
 import com.example.facts.databinding.CellFactBinding
@@ -31,7 +32,6 @@ import com.example.view.adapter.BindingListAdapter
 import com.example.view.adapter.BindingViewHolder
 import com.example.view.adapter.RecyclerViewItemSpacing
 import com.example.view.extension.collectToListAdapter
-import com.example.view.extension.updateConstraints
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -50,8 +50,12 @@ class CategoriesFragment : Fragment() {
 
     private var fabsExpanded = false
 
+    private lateinit var constraintsCollapsed: ConstraintSet
+    private lateinit var constraintsExpanded: ConstraintSet
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCategoriesBinding.inflate(inflater, container, false).also { binding ->
+            binding.lifecycleOwner = viewLifecycleOwner
             binding.categoriesRecyclerView.apply {
                 adapter = Adapter(factsViewModel).also { adapter ->
                     lifecycleScope.launch {
@@ -93,45 +97,29 @@ class CategoriesFragment : Fragment() {
                 findNavController()
                     .navigate(CategoriesFragmentDirections.actionCategoriesFragmentToCreateFactFragment())
             }
-        }
 
-        collapseFabs()
+            constraintsExpanded = ConstraintSet().apply {
+                clone(binding.categoriesContentView)
+            }
+
+            constraintsCollapsed = ConstraintSet().apply {
+                clone(binding.categoriesContentView)
+                centerVertically(binding.categoriesFabAddCategory.id, binding.categoriesFabAdd.id, ConstraintSet.TOP, 0, binding.categoriesFabAdd.id, ConstraintSet.BOTTOM, 0, .5f)
+                centerVertically(binding.categoriesFabAddFact.id, binding.categoriesFabAdd.id, ConstraintSet.TOP, 0, binding.categoriesFabAdd.id, ConstraintSet.BOTTOM, 0, .5f)
+                applyTo(binding.categoriesContentView)
+            }
+
+            fabsExpanded = false
+        }
 
         return binding.root
     }
 
     private fun toggleFabsExpanded() {
-        if (fabsExpanded) {
-            collapseFabs()
-        } else {
-            expandFabs()
-        }
-    }
-
-    private fun expandFabs() {
-        val spacing = themedAttributeProvider.getDimensionP(R.attr.facts_dimension_spacing)
-        (binding.root as ConstraintLayout).updateConstraints { options ->
-            clear(binding.categoriesFabAddCategory.id, ConstraintSet.TOP)
-            clear(binding.categoriesFabAddFact.id, ConstraintSet.TOP)
-            connect(binding.categoriesFabAddCategory.id, ConstraintSet.BOTTOM, binding.categoriesFabAdd.id, ConstraintSet.TOP, spacing)
-            connect(binding.categoriesFabAddFact.id, ConstraintSet.BOTTOM, binding.categoriesFabAddCategory.id, ConstraintSet.TOP, spacing)
-
-            options.animate = isResumed
-        }
-
-        fabsExpanded = true
-    }
-
-    private fun collapseFabs() {
-        (binding.root as ConstraintLayout).updateConstraints { options ->
-            clear(binding.categoriesFabAddCategory.id, ConstraintSet.BOTTOM)
-            clear(binding.categoriesFabAddFact.id, ConstraintSet.BOTTOM)
-            centerVertically(binding.categoriesFabAddCategory.id, binding.categoriesFabAdd.id, ConstraintSet.TOP, 0, binding.categoriesFabAdd.id, ConstraintSet.BOTTOM, 0, .5f)
-            centerVertically(binding.categoriesFabAddFact.id, binding.categoriesFabAdd.id, ConstraintSet.TOP, 0, binding.categoriesFabAdd.id, ConstraintSet.BOTTOM, 0, .5f)
-
-            options.animate = isResumed
-        }
-        fabsExpanded = false
+        val constraints = if (fabsExpanded) constraintsCollapsed else constraintsExpanded
+        constraints.applyTo(binding.categoriesContentView)
+        TransitionManager.go(Scene(binding.categoriesContentView))
+        fabsExpanded = !fabsExpanded
     }
 
     object CategoryDiffCallback : DiffUtil.ItemCallback<AdapterItem>() {
