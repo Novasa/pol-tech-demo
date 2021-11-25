@@ -14,8 +14,6 @@ class DogImageDataSource @Inject constructor(
 
     override fun flowInternal(input: Int) = flow {
 
-        coroutineScope {  }
-
         repeat(input) { i ->
             Timber.d("Loading image $i")
             val image = service.getDogImage()

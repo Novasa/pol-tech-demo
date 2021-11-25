@@ -1,8 +1,13 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+
+    // Kotlin annotation processor plugin, must be present in all modules that use annotation processors
     id 'kotlin-kapt'
+
     id 'dagger.hilt.android.plugin'
+
+    // Generates NavController action methods
     id 'androidx.navigation.safeargs.kotlin'
 }
 
@@ -16,7 +21,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // Custom test runner to enable automated instrumentation tests with Hilt
+        testInstrumentationRunner "com.example.facts.FactsHiltTestRunner"
     }
 
     buildTypes {
@@ -49,9 +55,10 @@ android {
 }
 
 dependencies {
-    // Used for java 8 date api
+    // Used for java 8 date api for api < 26, since java 8 is not supported before 26
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
+    // Library module dependencies
     implementation project(path: ':view')
     implementation project(path: ':styling')
     implementation project(path: ':animalfacts')
@@ -85,7 +92,23 @@ dependencies {
 
 
     // Test
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation "junit:junit:$versions.junit"
+    testImplementation "io.mockk:mockk:$versions.mockk"
+//    testImplementation "io.mockk:mockk-agent-jvm:$versions.mockk"
+
+    // Instrumented test
+    // To run ui tests, all animations must be deactivated on the testing device:
+    // 1: Enable developer mode
+    // 2: Go to developer options
+    // 3: Scroll down to find "Window-", "Transition-" and "Animator animation scale", and set them all to "Animation off"
+    androidTestImplementation "androidx.test.ext:junit:$versions.junitext"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$versions.espresso" // RecyclerView testing
+    androidTestImplementation "io.mockk:mockk-android:$versions.mockk"
+//    androidTestImplementation "io.mockk:mockk-agent-jvm:$versions.mockk"
+
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.dagger"
+    // Dagger kapt's must be included for testing
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$versions.dagger"
+    kaptAndroidTest "com.google.dagger:hilt-compiler:$versions.dagger"
 }

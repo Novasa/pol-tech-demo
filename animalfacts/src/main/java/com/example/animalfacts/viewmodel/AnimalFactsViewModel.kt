@@ -14,10 +14,12 @@ import com.example.network.repository.Repository
 import com.example.utility.state.Data
 import com.example.utility.state.mapResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,19 +40,27 @@ class AnimalFactsViewModel @Inject constructor(
             }
         }
 
-    fun update() {
+    fun updateAnimalFacts() {
 
         Timber.d("Updating animal facts...")
         viewModelScope.launch {
 
             val dogFacts = async {
-                dogFactsRepository.get(10)
-                    .map { it.toAnimalFact() }
+                try {
+                    dogFactsRepository.get(10)
+                        .map { it.toAnimalFact() }
+                } catch (e: Exception) {
+                    emptyList()
+                }
             }
 
             val catFacts = async {
-                catFactsRepository.get(10)
-                    .map { it.toAnimalFact() }
+                try {
+                    catFactsRepository.get(10)
+                        .map { it.toAnimalFact() }
+                } catch (e: Exception) {
+                    emptyList()
+                }
             }
 
             _animalFacts.value += (dogFacts.await() + catFacts.await()).shuffled()

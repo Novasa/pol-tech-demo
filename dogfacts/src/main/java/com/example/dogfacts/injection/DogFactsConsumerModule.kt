@@ -8,17 +8,17 @@ import com.example.network.repository.FlowDataSource
 import com.example.network.repository.Repository
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 
-@Module(
-    includes = [
-        DogFactsServiceModule::class
-    ]
-)
+@InstallIn(ViewModelComponent::class)
+@Module
 interface DogFactsConsumerModule {
 
     @Binds
-    fun bindDogFactsRepository(instance: DogFactsRepository) : Repository<Int, List<DogFact>>
+    fun bindDogFactsRepository(instance: DogFactsRepository): Repository<Int, List<DogFact>>
 
     @Binds
-    fun bindDogImagesRepository(instance: DogImageDataSource) : FlowDataSource<Int, DogImage>
+    fun bindDogImagesRepository(instance: DogImageDataSource): FlowDataSource<Int, DogImage>
 }

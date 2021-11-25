@@ -10,26 +10,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animalfacts.databinding.CellAnimalFactBinding
-import com.example.animalfacts.databinding.CellAnimalImageBinding
 import com.example.animalfacts.databinding.FragmentAnimalFactsBinding
 import com.example.animalfacts.model.AnimalFact
-import com.example.animalfacts.model.AnimalImage
 import com.example.animalfacts.viewmodel.AnimalFactsViewModel
-import com.example.catfacts.service.CatFactsService
 import com.example.view.adapter.BindingListAdapter
 import com.example.view.adapter.BindingViewHolder
-import com.example.view.adapter.CoroutineViewHolder
 import com.example.view.adapter.RecyclerViewItemSpacing
-import com.example.view.extension.collectToListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.launch
-import okhttp3.internal.addHeaderLenient
-import javax.inject.Inject
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class AnimalFactsFragment : Fragment() {
@@ -41,7 +31,9 @@ class AnimalFactsFragment : Fragment() {
         val animalFactsAdapter = Adapter()
 
         lifecycleScope.launchWhenStarted {
-            viewModel.animalFacts.collectToListAdapter(animalFactsAdapter)
+            viewModel.animalFacts.collectLatest {
+                animalFactsAdapter.submitList(it)
+            }
         }
 
         return FragmentAnimalFactsBinding.inflate(inflater, container, false).apply {
@@ -49,6 +41,10 @@ class AnimalFactsFragment : Fragment() {
                 adapter = animalFactsAdapter
                 layoutManager = LinearLayoutManager(inflater.context)
                 addItemDecoration(RecyclerViewItemSpacing(20))
+            }
+
+            if (animalFactsAdapter.itemCount == 0) {
+                viewModel.updateAnimalFacts()
             }
         }.root
     }

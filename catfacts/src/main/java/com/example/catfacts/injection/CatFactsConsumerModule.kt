@@ -5,12 +5,11 @@ import com.example.catfacts.repository.CatFactsRepository
 import com.example.network.repository.Repository
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 
-@Module(
-    includes = [
-        CatFactsServiceModule::class
-    ]
-)
+@InstallIn(ViewModelComponent::class)
+@Module
 interface CatFactsConsumerModule {
 
     @Binds
