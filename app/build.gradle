@@ -22,7 +22,7 @@ android {
         versionName "1.0"
 
         // Custom test runner to enable automated instrumentation tests with Hilt
-        testInstrumentationRunner "com.example.facts.FactsHiltTestRunner"
+        testInstrumentationRunner "com.example.facts.test.FactsHiltTestRunner"
     }
 
     buildTypes {

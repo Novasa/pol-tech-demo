@@ -1,4 +1,4 @@
-package com.example.facts.animalfacts
+package com.example.facts.test.animalfacts
 
 import androidx.databinding.DataBindingUtil
 import androidx.test.espresso.Espresso.onView
