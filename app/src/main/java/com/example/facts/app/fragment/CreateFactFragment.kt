@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,7 +57,7 @@ class CreateFactFragment : Fragment() {
             lifecycleScope.launchWhenStarted {
                 factsViewModel.createFactStateFlow.collectLatest { state ->
                     when (state) {
-                        is Data.Complete -> parentFragmentManager.popBackStack()
+                        is Data.Complete -> findNavController().popBackStack()
                         else -> {}
                     }
                 }

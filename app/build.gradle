@@ -52,6 +52,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    packagingOptions {
+        // Some of the testing dependencies introduce these files twice, creating a conflict
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/AL2.0'
+    }
 }
 
 dependencies {
@@ -94,7 +100,6 @@ dependencies {
     // Test
     testImplementation "junit:junit:$versions.junit"
     testImplementation "io.mockk:mockk:$versions.mockk"
-//    testImplementation "io.mockk:mockk-agent-jvm:$versions.mockk"
 
     // Instrumented test
     // To run ui tests, all animations must be deactivated on the testing device:
@@ -105,10 +110,10 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$versions.espresso" // RecyclerView testing
     androidTestImplementation "io.mockk:mockk-android:$versions.mockk"
-//    androidTestImplementation "io.mockk:mockk-agent-jvm:$versions.mockk"
-
     androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.dagger"
-    // Dagger kapt's must be included for testing
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
+
+    // Dagger kapt's must be included for testing, or annotations won't be processed when running the test application
     kaptAndroidTest "com.google.dagger:dagger-compiler:$versions.dagger"
     kaptAndroidTest "com.google.dagger:hilt-compiler:$versions.dagger"
 }

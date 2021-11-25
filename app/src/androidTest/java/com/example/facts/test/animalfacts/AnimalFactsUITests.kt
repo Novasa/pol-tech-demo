@@ -14,6 +14,7 @@ import com.example.dogfacts.service.DogFactsService
 import com.example.facts.R
 import com.example.facts.app.activity.MainActivity
 import com.example.facts.databinding.DataBindingComponentImplementation
+import com.example.facts.injection.TestServiceModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.coEvery
@@ -35,7 +36,7 @@ class AnimalFactsUITests {
     @Inject
     lateinit var dataBindingComponent: DataBindingComponentImplementation
 
-    /** These are mocks defined in the [com.example.facts.injection.TestServiceModule] */
+    /** These are mocks defined in the [TestServiceModule] */
     @Inject
     lateinit var dogFactsService: DogFactsService
 
@@ -51,20 +52,18 @@ class AnimalFactsUITests {
     @Test
     fun displayAnimalFacts() {
 
+        // Mock the required service functions to return mock data
         // coEvery for suspend functions
-        coEvery { dogFactsService.getDogFacts(any()) } answers {
-            listOf(
-                DogFact("Test hund 1")
-            )
-        }
+        coEvery { dogFactsService.getDogFacts(any()) } returns listOf(
+            DogFact("Test dog fact 1")
+        )
 
-        coEvery { catFactsService.getCatFacts(any(), any()) } answers {
-            CatFactsResponse(
-                listOf(
-                    CatFact("Test kat 1", 100)
-                )
+        coEvery { catFactsService.getCatFacts(any(), any()) } returns CatFactsResponse(
+            listOf(
+                CatFact("Test cat fact 1", 100)
             )
-        }
+        )
+
 
         // Note: static methods imports to remove clutter
         onView(
@@ -88,10 +87,10 @@ class AnimalFactsUITests {
             )
         )
 
-        onCellWithText("Test hund 1")
+        onCellWithText("Test dog fact 1")
             .check(matches(isDisplayed()))
 
-        onCellWithText("Test kat 1")
+        onCellWithText("Test cat fact 1")
             .check(matches(isDisplayed()))
     }
 }

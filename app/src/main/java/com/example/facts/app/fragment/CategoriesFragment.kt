@@ -14,12 +14,15 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.facts.R
 import com.example.facts.database.query.CategoryWithFacts
 import com.example.facts.databinding.CellCategoryBinding
 import com.example.facts.databinding.CellFactBinding
@@ -56,22 +59,26 @@ class CategoriesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCategoriesBinding.inflate(inflater, container, false).also { binding ->
             binding.lifecycleOwner = viewLifecycleOwner
-            binding.categoriesRecyclerView.apply {
-                adapter = Adapter(factsViewModel).also { adapter ->
-                    lifecycleScope.launch {
-                        factsViewModel.categoryFlow
-                            .map { categories ->
-                                categories.flatMap { category ->
-                                    listOf(CategoryAdapterItem(category)) + category.facts.map { FactAdapterItem(it, category.category) }
-                                }
-                            }
-                            .onEach { list -> Timber.d("$list") }
-                            .collectToListAdapter(adapter)
-                    }
-                }
-                layoutManager = LinearLayoutManager(inflater.context)
-                addItemDecoration(RecyclerViewItemSpacing(20))
 
+            val factsAdapter = Adapter(factsViewModel)
+
+            binding.categoriesRecyclerView.apply {
+                adapter = factsAdapter
+                layoutManager = LinearLayoutManager(inflater.context)
+                addItemDecoration(RecyclerViewItemSpacing(themedAttributeProvider.getDimensionP(R.attr.facts_dimension_spacing)))
+            }
+
+            lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    factsViewModel.categoryFlow
+                        .map { categories ->
+                            categories.flatMap { category ->
+                                listOf(CategoryAdapterItem(category)) + category.facts.map { FactAdapterItem(it, category.category) }
+                            }
+                        }
+                        .onEach { list -> Timber.d("$list") }
+                        .collectToListAdapter(factsAdapter)
+                }
             }
 
             binding.categoriesFabAdd.setOnClickListener {

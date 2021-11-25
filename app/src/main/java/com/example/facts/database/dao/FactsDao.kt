@@ -18,24 +18,22 @@ interface FactsDao {
     suspend fun getCategories(): List<Category>
 
     @Query("SELECT * FROM Category WHERE id = :id")
-    suspend fun getCategory(id: Int): Category?
+    suspend fun getCategoryWithFacts(id: Long): CategoryWithFacts?
 
     @Transaction
-    suspend fun createFact(fact: Fact, categories: List<Category>) {
-        val factId = insertFact(fact)
+    suspend fun insertFact(fact: Fact, categories: List<Category>): Long = insertFact(fact).also { factId ->
         insertCategoryFactRelations(categories.map { category -> CategoryFactRelation(category.id, factId) })
     }
 
     @Insert
-    suspend fun insertCategory(category: Category) : Long
+    suspend fun insertCategory(category: Category): Long
 
     @Insert
-    suspend fun insertFact(fact: Fact) : Long
+    suspend fun insertFact(fact: Fact): Long
 
     @Insert
     suspend fun insertCategoryFactRelations(relations: List<CategoryFactRelation>)
 
     @Delete
     suspend fun deleteCategory(category: Category)
-
 }

@@ -51,7 +51,7 @@ class FactsViewModel @Inject constructor(
     fun createFact(text: String) {
         _createFactStateFlow.value = Data.Progress
         viewModelScope.launch {
-            factsDao.createFact(Fact(text = text), selectedCategories.toList())
+            factsDao.insertFact(Fact(text = text), selectedCategories.toList())
             _createFactStateFlow.value = Data.Complete
 
             selectedCategories.clear()

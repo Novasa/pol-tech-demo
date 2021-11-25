@@ -18,7 +18,6 @@ import javax.inject.Singleton
 @Module(
     includes = [
         DatabaseConsumerModule::class,
-        DatabaseModule.DaoModule::class
     ]
 )
 class DatabaseModule {
@@ -34,10 +33,11 @@ class DatabaseModule {
         return factory.createDatabase(config)
     }
 
-    @InstallIn(ViewModelComponent::class)
+    @InstallIn(SingletonComponent::class)
     @Module
     class DaoModule {
 
+        @Singleton
         @Provides
         fun provideFactsDao(database: Database): FactsDao = database.factsDao()
     }
