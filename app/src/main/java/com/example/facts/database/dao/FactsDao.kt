@@ -18,6 +18,9 @@ interface FactsDao {
     suspend fun getCategories(): List<Category>
 
     @Query("SELECT * FROM Category WHERE id = :id")
+    suspend fun getCategory(id: Long): Category?
+
+    @Query("SELECT * FROM Category WHERE id = :id")
     suspend fun getCategoryWithFacts(id: Long): CategoryWithFacts?
 
     @Transaction
