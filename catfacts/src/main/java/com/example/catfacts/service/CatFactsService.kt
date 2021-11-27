@@ -1,6 +1,7 @@
 package com.example.catfacts.service
 
 import com.example.catfacts.model.CatFactsResponse
+import com.example.catfacts.model.CatUser
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,5 +11,9 @@ interface CatFactsService {
     suspend fun getCatFacts(
         @Query("limit") count: Int,
         @Query("max_length") maxLength: Int
-    ) : CatFactsResponse
+    ): CatFactsResponse
+
+    suspend fun getCatUser(): CatUser
+
+    suspend fun updateCatUser(user: CatUser)
 }

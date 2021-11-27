@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.animalfacts.viewmodel.AnimalFactsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?facts_color_background1">
+
+        <TextView
+            android:id="@+id/catUserNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User name:"
+            android:textAppearance="?facts_textAppearance_header1"
+            app:layout_constraintBottom_toTopOf="@id/catUserName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/catUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{viewModel.catUser.name ?? "Loading"}'
+            android:textAppearance="?facts_textAppearance_header2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/catUserNameLabel"
+            tools:text="Dennis" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/catUserFabEdit"
+            style="?facts_style_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="?facts_dimension_padding"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

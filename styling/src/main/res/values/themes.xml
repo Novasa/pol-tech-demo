@@ -1,5 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- region Base Theme -->
+
     <style name="Facts" />
 
     <style name="Facts.Theme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -12,7 +14,14 @@
         <item name="facts_style_itemCardView">@style/Facts.CardView</item>
         <item name="facts_style_buttonBordered">@style/Facts.Button.Bordered</item>
         <item name="facts_style_tabLayout">@style/Facts.TabLayout</item>
+        <item name="facts_style_fab">@style/Facts.Fab</item>
     </style>
+
+    <!-- endregion -->
+
+
+    <!-- region Default Theme -->
+    <!-- Can be overridden in separate resource folders, like values-night for dark theme -->
 
     <style name="Facts.Theme.Actual">
         <item name="colorPrimary">@color/politi_blue_light</item>
@@ -30,4 +39,7 @@
 
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
+
+    <!-- endregion -->
+
 </resources>

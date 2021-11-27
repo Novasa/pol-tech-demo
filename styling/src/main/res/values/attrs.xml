@@ -32,6 +32,7 @@
     <attr name="facts_style_buttonBordered" format="reference" />
     <attr name="facts_style_itemCardView" format="reference" />
     <attr name="facts_style_tabLayout" format="reference" />
+    <attr name="facts_style_fab" format="reference" />
 
     <!-- endregion -->
 

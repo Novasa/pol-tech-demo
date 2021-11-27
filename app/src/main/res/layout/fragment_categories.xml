@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="nav"
             type="androidx.navigation.NavController" />
@@ -25,13 +26,11 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/categoriesFabAddCategory"
+            style="?facts_style_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_margin="?facts_dimension_padding"
-            android:backgroundTint="?colorPrimary"
             android:src="@drawable/ic_category"
-            android:tint="?colorAccent"
             app:fabSize="mini"
             app:layout_constraintBottom_toTopOf="@id/categoriesFabAdd"
             app:layout_constraintEnd_toEndOf="@id/categoriesFabAdd"
@@ -39,13 +38,11 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/categoriesFabAddFact"
+            style="?facts_style_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_margin="?facts_dimension_padding"
-            android:backgroundTint="?colorPrimary"
             android:src="@drawable/ic_fact"
-            android:tint="?colorAccent"
             app:fabSize="mini"
             app:layout_constraintBottom_toTopOf="@id/categoriesFabAddCategory"
             app:layout_constraintEnd_toEndOf="@id/categoriesFabAdd"
@@ -53,14 +50,12 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/categoriesFabAdd"
+            style="?facts_style_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_marginEnd="?facts_dimension_padding"
             android:layout_marginBottom="?facts_dimension_padding"
-            android:backgroundTint="?colorPrimary"
             android:src="@drawable/ic_add"
-            android:tint="?colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,20 +1,12 @@
 package com.example.catfacts.repository
 
 import com.example.catfacts.model.CatFact
-import com.example.catfacts.service.CatFactsService
-import com.example.network.repository.Repository
-import timber.log.Timber
-import javax.inject.Inject
+import com.example.catfacts.model.CatUser
+import com.example.utility.coroutines.FlowChannel
+import com.example.utility.coroutines.FlowOutChannel
 
-class CatFactsRepository @Inject constructor(
-    private val service: CatFactsService
-) : Repository<Int, List<@JvmSuppressWildcards CatFact>> {
-
-    override suspend fun get(input: Int): List<CatFact> {
-        Timber.d("Getting cat facts...")
-
-        return service.getCatFacts(input, 200).data.also {
-            Timber.d("Result: $it")
-        }
-    }
+interface CatFactsRepository {
+    suspend fun getCatFacts(): FlowChannel<Int, List<CatFact>>
+    suspend fun getCatUser(): FlowOutChannel<CatUser>
+    suspend fun updateCatUser(): FlowChannel<CatUser, CatUser>
 }

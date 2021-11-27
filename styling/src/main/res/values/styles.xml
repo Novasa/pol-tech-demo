@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+    <!-- These are styles implemented by themes. -->
 
     <style name="Facts.TextAppearance" />
 
@@ -44,6 +44,11 @@
         <item name="tabIndicatorColor">?colorPrimary</item>
         <item name="tabTextAppearance">?attr/facts_textAppearance_header2</item>
         <item name="android:background">?attr/facts_color_background2</item>
+    </style>
+
+    <style name="Facts.Fab">
+        <item name="android:backgroundTint">?colorPrimary</item>
+        <item name="android:tint">?colorAccent</item>
     </style>
 
 </resources>

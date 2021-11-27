@@ -22,8 +22,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.ZonedDateTime
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalUnit
 import java.util.concurrent.Executors
 import javax.inject.Inject
+import javax.xml.datatype.DatatypeConstants
 
 @HiltAndroidTest
 @ExperimentalCoroutinesApi
@@ -31,7 +34,7 @@ import javax.inject.Inject
 class FactsDaoTests {
 
     @get:Rule
-    var hiltRule = HiltAndroidRule(this)
+    val hiltRule = HiltAndroidRule(this)
 
     @Inject
     lateinit var dateTimeTypeConverter: DateTimeTypeConverter
@@ -57,7 +60,7 @@ class FactsDaoTests {
 
     @Test
     fun insertAndRetrieveCategoryWithFacts() {
-        val time = ZonedDateTime.now()
+        val time = ZonedDateTime.now().truncatedTo(ChronoUnit.SECONDS)
         val category = Category(name = "Test category", created = time)
         val fact = Fact(text = "Test fact")
 

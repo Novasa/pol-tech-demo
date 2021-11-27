@@ -17,7 +17,7 @@ import com.example.facts.databinding.FragmentCreateFactBinding
 import com.example.facts.databinding.Selectable
 import com.example.facts.model.Category
 import com.example.facts.viewmodel.FactsViewModel
-import com.example.utility.state.Data
+import com.example.utility.coroutines.Data
 import com.example.view.adapter.BindingListAdapter
 import com.example.view.adapter.BindingViewHolder
 import dagger.hilt.android.AndroidEntryPoint

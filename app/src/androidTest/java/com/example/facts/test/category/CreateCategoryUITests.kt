@@ -1,17 +1,11 @@
 package com.example.facts.test.category
 
 import androidx.databinding.DataBindingUtil
-import androidx.room.Dao
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.RootMatchers.isDialog
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.facts.R
@@ -24,8 +18,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.slot
-import io.mockk.verify
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -35,10 +28,10 @@ import javax.inject.Inject
 class CreateCategoryUITests {
 
     @get:Rule(order = 0)
-    var hiltRule = HiltAndroidRule(this)
+    val hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
-    var activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Inject
     lateinit var dataBindingComponent: DataBindingComponentImplementation
@@ -55,6 +48,7 @@ class CreateCategoryUITests {
     @Test
     fun createCategory() {
 
+        // Mock the insert function in the dao
         coEvery { factsDao.insertCategory(any()) } returns 1L
 
         onView(withId(R.id.categoriesFabAdd))
@@ -79,6 +73,6 @@ class CreateCategoryUITests {
         // coVerify for suspend function
         coVerify(exactly = 1) { factsDao.insertCategory(capture(categorySlot)) }
 
-        Assert.assertEquals("Test category", categorySlot.captured.name)
+        assertEquals("Test category", categorySlot.captured.name)
     }
 }

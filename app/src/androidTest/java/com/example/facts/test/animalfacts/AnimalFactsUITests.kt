@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.catfacts.model.CatFact
 import com.example.catfacts.model.CatFactsResponse
+import com.example.catfacts.model.CatUser
 import com.example.catfacts.service.CatFactsService
 import com.example.dogfacts.model.DogFact
 import com.example.dogfacts.service.DogFactsService
@@ -19,6 +20,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.coEvery
 import org.hamcrest.core.AllOf.allOf
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,10 +30,10 @@ import javax.inject.Inject
 class AnimalFactsUITests {
 
     @get:Rule(order = 0)
-    var hiltRule = HiltAndroidRule(this)
+    val hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
-    var activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Inject
     lateinit var dataBindingComponent: DataBindingComponentImplementation
@@ -49,6 +51,26 @@ class AnimalFactsUITests {
         DataBindingUtil.setDefaultComponent(dataBindingComponent)
     }
 
+    private fun navigateToAnimalFacts() {
+
+        // Note: static method imports to remove clutter
+        onView(
+            // We have to uniquely define the view we want to click, and since it has no known ID, we need to find it another way
+            allOf(
+                // Child view of bottom navigation view
+                isDescendantOfA(withId(R.id.mainBottomNavigation)),
+
+                // Has the text of the menu option we want
+                withText(R.string.main_page_animal_facts),
+
+                // Is currently displayed.
+                // Required because there are 2 text views with the text in the bottom navigation view,
+                // one large for when the option is selected, and a smaller one when not
+                isDisplayed()
+            )
+        ).perform(click())
+    }
+
     @Test
     fun displayAnimalFacts() {
 
@@ -64,21 +86,7 @@ class AnimalFactsUITests {
             )
         )
 
-
-        // Note: static methods imports to remove clutter
-        onView(
-            allOf(
-                // Child view of bottom navigation view
-                isDescendantOfA(withId(R.id.mainBottomNavigation)),
-
-                // Has the text of the menu option we want
-                withText(R.string.main_page_animal_facts),
-
-                // Is currently displayed.
-                // Required because there are 2 text views with the text, one large for when the option is selected, and a smaller one when not
-                isDisplayed()
-            )
-        ).perform(click())
+        navigateToAnimalFacts()
 
         fun onCellWithText(text: String) = onView(
             allOf(
@@ -92,5 +100,15 @@ class AnimalFactsUITests {
 
         onCellWithText("Test cat fact 1")
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun testUpdateCatUser() {
+        coEvery { catFactsService.getCatUser() } returns CatUser("Test name 1")
+
+        navigateToAnimalFacts()
+
+        onView(withId(R.id.animalFactsFabUser))
+            .perform(click())
     }
 }

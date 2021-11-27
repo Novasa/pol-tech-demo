@@ -5,7 +5,7 @@ import com.example.facts.model.Category
 import com.example.facts.database.dao.FactsDao
 import com.example.facts.model.Fact
 import com.example.facts.database.query.CategoryWithFacts
-import com.example.utility.state.Data
+import com.example.utility.coroutines.Data
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

@@ -21,5 +21,5 @@ class DateTimeModule {
 
     @FormatterDateTime
     @Provides
-    fun provideDateTimeFormatter(): DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss:SSSZ")
+    fun provideDateTimeFormatter(): DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ssZ")
 }
