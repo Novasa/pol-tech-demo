@@ -5,11 +5,11 @@
         android:icon="@drawable/ic_cat"
         android:title="@string/main_page_categories" />
     <item
-        android:id="@id/animalFactsFragment"
+        android:id="@id/nav_animal_facts"
         android:icon="@drawable/ic_cat"
         android:title="@string/main_page_animal_facts" />
     <item
-        android:id="@id/animalFactsDogImagesFragment"
+        android:id="@id/nav_dog_images"
         android:icon="@drawable/ic_dog"
         android:title="@string/main_page_images" />
 </menu>

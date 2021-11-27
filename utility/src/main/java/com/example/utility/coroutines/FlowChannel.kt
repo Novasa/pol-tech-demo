@@ -1,13 +1,18 @@
 package com.example.utility.coroutines
 
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
 
 abstract class FlowChannel<P : Any, R : Any> {
 
     fun flow(params: P): Flow<Data<R>> = createFlow(params)
         .map<R, Data<R>> { Data.Success(it) }
         .onStart { emit(Data.Progress) }
-        .catch { emit(Data.Failure(it)) }
+        .onEach { Timber.d(it.toString()) }
+        .catch {
+            Timber.e(it)
+            emit(Data.Failure(it))
+        }
         .onCompletion { emit(Data.Complete) }
 
     protected abstract fun createFlow(params: P): Flow<R>

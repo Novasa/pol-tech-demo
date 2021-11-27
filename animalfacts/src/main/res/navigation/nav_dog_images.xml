@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_dog_images"
+    app:startDestination="@id/animalFactsDogImagesFragment">
+
+    <!-- Declare fragment even though it has no actions, so it can be referenced from a menu config xml -->
+    <fragment
+        android:id="@+id/animalFactsDogImagesFragment"
+        android:name="com.example.animalfacts.app.fragment.AnimalFactsDogImagesFragment"
+        android:label="AnimalFactsDogImagesFragment" />
+</navigation>

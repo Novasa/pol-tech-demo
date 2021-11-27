@@ -16,10 +16,4 @@
         android:id="@+id/animalFactsCatUserFragment"
         android:name="com.example.animalfacts.app.fragment.AnimalFactsCatUserFragment"
         android:label="AnimalFactsCatUserFragment" />
-
-    <!-- Declare fragment even though it has no actions, so it can be referenced from a menu config xml -->
-    <fragment
-        android:id="@+id/animalFactsDogImagesFragment"
-        android:name="com.example.animalfacts.app.fragment.AnimalFactsDogImagesFragment"
-        android:label="AnimalFactsDogImagesFragment" />
 </navigation>
