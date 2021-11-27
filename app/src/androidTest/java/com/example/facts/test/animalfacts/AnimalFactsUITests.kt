@@ -1,9 +1,14 @@
 package com.example.facts.test.animalfacts
 
+import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.RootMatchers
+import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.catfacts.model.CatFact
@@ -16,9 +21,12 @@ import com.example.facts.R
 import com.example.facts.app.activity.MainActivity
 import com.example.facts.databinding.DataBindingComponentImplementation
 import com.example.facts.injection.TestServiceModule
+import com.example.facts.matcher.ViewMatchers
+import com.example.facts.matcher.ViewMatchers.withType
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.coEvery
+import kotlinx.coroutines.delay
 import org.hamcrest.core.AllOf.allOf
 import org.junit.After
 import org.junit.Before
@@ -102,13 +110,42 @@ class AnimalFactsUITests {
             .check(matches(isDisplayed()))
     }
 
+    /**
+     * Here we mock the backend logic of the cat facts api, to change the returned user when it is updated
+     */
     @Test
     fun testUpdateCatUser() {
-        coEvery { catFactsService.getCatUser() } returns CatUser("Test name 1")
+        coEvery { catFactsService.getCatUser() } returns CatUser("Test name")
+
+        coEvery { catFactsService.updateCatUser(any()) } answers {
+            // "answers" is similar to "returns", but allows for this lambda to be executed when the function is called
+            // "firstArg" refers to the argument that "updateCatUser" is called with
+            coEvery { catFactsService.getCatUser() } returns firstArg()
+        }
 
         navigateToAnimalFacts()
 
         onView(withId(R.id.animalFactsFabUser))
             .perform(click())
+
+        onView(withId(R.id.catUserName))
+            .check(matches(allOf(isDisplayed(), withText("Test name"))))
+
+        onView(withId(R.id.catUserFabEdit))
+            .perform(click())
+
+        // Custom view matcher to check for the view type
+        onView(withType(EditText::class.java))
+            .inRoot(isDialog())
+            .perform(click())
+            .perform(typeText("New test name"))
+
+        onView(withText("OK"))
+            .inRoot(isDialog())
+            .perform(click())
+
+        // We expect the ui to automatically update when we edit the name
+        onView(withId(R.id.catUserName))
+            .check(matches(withText("New test name")))
     }
 }
