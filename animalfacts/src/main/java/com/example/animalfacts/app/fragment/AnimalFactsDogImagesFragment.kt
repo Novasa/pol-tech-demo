@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.animalfacts.databinding.CellAnimalImageBinding
 import com.example.animalfacts.databinding.FragmentAnimalFactsBinding
+import com.example.animalfacts.databinding.FragmentDogImagesBinding
 import com.example.animalfacts.model.AnimalImage
 import com.example.animalfacts.viewmodel.AnimalFactsViewModel
 import com.example.view.adapter.BindingListAdapter
@@ -26,15 +27,15 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 
 @AndroidEntryPoint
-class AnimalImagesFragment : Fragment() {
+class AnimalFactsDogImagesFragment : Fragment() {
 
     private val viewModel by activityViewModels<AnimalFactsViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val animalImagesAdapter = Adapter(viewModel)
 
-        val binding = FragmentAnimalFactsBinding.inflate(inflater, container, false).apply {
-            animalFactsRecyclerView.apply {
+        val binding = FragmentDogImagesBinding.inflate(inflater, container, false).apply {
+            dogImagesRecyclerView.apply {
                 adapter = animalImagesAdapter
                 layoutManager = GridLayoutManager(inflater.context, 3)
                 addItemDecoration(RecyclerViewItemSpacing(20))

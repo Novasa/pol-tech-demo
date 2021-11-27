@@ -2,12 +2,14 @@ package com.example.animalfacts.app.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +47,11 @@ class AnimalFactsFragment : Fragment() {
 
             if (animalFactsAdapter.itemCount == 0) {
                 viewModel.updateAnimalFacts()
+            }
+
+            animalFactsFabUser.setOnClickListener {
+                findNavController()
+                    .navigate(AnimalFactsFragmentDirections.actionAnimalFactsFragmentToAnimalFactsCatUserFragment())
             }
         }.root
     }

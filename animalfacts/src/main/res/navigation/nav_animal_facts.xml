@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_animal_facts"
+    app:startDestination="@id/animalFactsFragment">
+
+    <fragment
+        android:id="@+id/animalFactsFragment"
+        android:name="com.example.animalfacts.app.fragment.AnimalFactsFragment"
+        android:label="AnimalFactsFragment">
+        <action
+            android:id="@+id/action_animalFactsFragment_to_animalFactsCatUserFragment"
+            app:destination="@id/animalFactsCatUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/animalFactsCatUserFragment"
+        android:name="com.example.animalfacts.app.fragment.AnimalFactsCatUserFragment"
+        android:label="AnimalFactsCatUserFragment" />
+
+    <!-- Declare fragment even though it has no actions, so it can be referenced from a menu config xml -->
+    <fragment
+        android:id="@+id/animalFactsDogImagesFragment"
+        android:name="com.example.animalfacts.app.fragment.AnimalFactsDogImagesFragment"
+        android:label="AnimalFactsDogImagesFragment" />
+</navigation>

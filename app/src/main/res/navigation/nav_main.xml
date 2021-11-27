@@ -19,18 +19,11 @@
             app:popUpTo="@id/categoriesFragment"
             app:popUpToInclusive="false" />
     </fragment>
-
-    <fragment
-        android:id="@+id/animalFactsFragment"
-        android:name="com.example.animalfacts.app.fragment.AnimalFactsFragment"
-        android:label="AnimalFactsFragment" />
-
-    <fragment
-        android:id="@+id/animalImagesFragment"
-        android:name="com.example.animalfacts.app.fragment.AnimalImagesFragment"
-        android:label="AnimalImagesFragment" />
     <fragment
         android:id="@+id/createFactFragment"
         android:name="com.example.facts.app.fragment.CreateFactFragment"
         android:label="CreateFactFragment" />
+
+    <include app:graph="@navigation/nav_animal_facts" />
+
 </navigation>
