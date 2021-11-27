@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,11 +34,13 @@ import kotlinx.coroutines.withContext
 class CreateFactFragment : Fragment() {
 
     private val factsViewModel: FactsViewModel by activityViewModels()
+    private val args: CreateFactFragmentArgs  by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return FragmentCreateFactBinding.inflate(inflater, container, false).also { binding ->
             binding.lifecycleOwner = viewLifecycleOwner
             binding.viewModel = factsViewModel
+            binding.weirdoType = args.weirdoType.cls.newInstance()
 
             binding.factCategories.layoutManager = LinearLayoutManager(inflater.context)
             binding.factCategories.adapter = Adapter(factsViewModel).also { adapter ->

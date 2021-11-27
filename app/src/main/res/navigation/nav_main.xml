@@ -21,7 +21,11 @@
     <fragment
         android:id="@+id/createFactFragment"
         android:name="com.example.facts.app.fragment.CreateFactFragment"
-        android:label="CreateFactFragment" />
+        android:label="CreateFactFragment">
+        <argument
+            android:name="weirdoType"
+            app:argType="com.example.facts.model.WeirdoTypeArg" />
+    </fragment>
 
     <include app:graph="@navigation/nav_animal_facts" />
     <include app:graph="@navigation/nav_dog_images" />

@@ -29,6 +29,8 @@ import com.example.facts.databinding.CellFactBinding
 import com.example.facts.databinding.FragmentCategoriesBinding
 import com.example.facts.model.Category
 import com.example.facts.model.Fact
+import com.example.facts.model.WeirdoTypeArg
+import com.example.facts.model.WeirdoTypeExample
 import com.example.facts.viewmodel.FactsViewModel
 import com.example.styling.ThemedAttributeProvider
 import com.example.view.adapter.BindingListAdapter
@@ -101,8 +103,10 @@ class CategoriesFragment : Fragment() {
             }
 
             binding.categoriesFabAddFact.setOnClickListener {
+                val arg = WeirdoTypeArg(WeirdoTypeExample::class.java)
+
                 findNavController()
-                    .navigate(CategoriesFragmentDirections.actionCategoriesFragmentToCreateFactFragment())
+                    .navigate(CategoriesFragmentDirections.actionCategoriesFragmentToCreateFactFragment(arg))
             }
 
             constraintsExpanded = ConstraintSet().apply {

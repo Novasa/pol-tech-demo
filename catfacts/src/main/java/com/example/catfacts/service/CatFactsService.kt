@@ -2,8 +2,7 @@ package com.example.catfacts.service
 
 import com.example.catfacts.model.CatFactsResponse
 import com.example.catfacts.model.CatUser
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface CatFactsService {
 
@@ -13,7 +12,11 @@ interface CatFactsService {
         @Query("max_length") maxLength: Int
     ): CatFactsResponse
 
+
+    // These endpoints don't actually exist, they are just here for instrumented test examples
+    @GET("bogus")
     suspend fun getCatUser(): CatUser
 
-    suspend fun updateCatUser(user: CatUser)
+    @PUT("bogus")
+    suspend fun updateCatUser(@Body user: CatUser)
 }

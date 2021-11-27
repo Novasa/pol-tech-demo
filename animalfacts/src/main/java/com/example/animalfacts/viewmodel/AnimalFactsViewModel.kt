@@ -42,17 +42,20 @@ class AnimalFactsViewModel @Inject constructor(
         }
 
     private val _catUser = MutableStateFlow<CatUser?>(null)
-    val catUser = _catUser.apply {
-        if (value == null) {
-            viewModelScope.launch {
-                catFactsRepository.getCatUser()
-                    .flow()
-                    .filter { it.isSuccess() }
-                    .map { (it as Data.Success).value }
-                    .collect { value = it }
+    val catUser = _catUser.asStateFlow()
+        get() {
+            if (field.value == null) {
+                viewModelScope.launch {
+                    catFactsRepository.getCatUser()
+                        .flow()
+                        .filter { it.isSuccess() }
+                        .map { (it as Data.Success).value }
+                        .collect { _catUser.value = it }
+                }
             }
+            return field
         }
-    }.asStateFlow()
+
 
     fun updateCatUser(name: String) {
         viewModelScope.launch {

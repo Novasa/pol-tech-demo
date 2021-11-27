@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
             type="com.example.facts.viewmodel.FactsViewModel" />
+
+        <variable
+            name="weirdoType"
+            type="com.example.facts.model.WeirdoType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,10 +27,22 @@
             android:layout_marginBottom="?facts_dimension_spacing"
             android:text="Opret fact"
             android:textAppearance="?facts_textAppearance_header1"
-            app:layout_constraintBottom_toTopOf="@id/factInputText"
+            app:layout_constraintBottom_toTopOf="@id/factWeirdoTypeOutput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/factWeirdoTypeOutput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{weirdoType.doTheThing(100)}"
+            android:textAppearance="?facts_textAppearance_header2"
+            app:layout_constraintBottom_toTopOf="@id/factInputText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/factHeader"
+            tools:text="Weirdo" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/factInputText"
@@ -39,7 +56,7 @@
             app:layout_constraintBottom_toTopOf="@id/factCategories"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/factHeader" />
+            app:layout_constraintTop_toBottomOf="@id/factWeirdoTypeOutput" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/factCategories"
