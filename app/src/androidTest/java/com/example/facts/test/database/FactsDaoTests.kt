@@ -14,6 +14,11 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.MatcherAssert
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers
+import org.hamcrest.Matchers.greaterThan
+import org.hamcrest.Matchers.notNullValue
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -66,14 +71,14 @@ class FactsDaoTests {
 
         runBlocking {
             val catId = dao.insertCategory(category)
-            assert(catId > 0L)
+            assertThat(catId, greaterThan(0))
 
             val dbCategory = dao.getCategory(catId)
             assertNotNull(dbCategory)
             dbCategory!!
 
             val factId = dao.insertFact(fact, listOf(dbCategory))
-            assert(factId > 0L)
+            assertThat(factId, greaterThan(0))
 
             val categoryWithFacts = dao.getCategoryWithFacts(catId)
 

@@ -42,9 +42,9 @@ class AnimalFactsViewModel @Inject constructor(
         }
 
     private val _catUser = MutableStateFlow<CatUser?>(null)
-    val catUser = _catUser.asStateFlow()
+    val catUser: StateFlow<CatUser?>
         get() {
-            if (field.value == null) {
+            if (_catUser.value == null) {
                 viewModelScope.launch {
                     catFactsRepository.getCatUser()
                         .flow()
@@ -53,7 +53,7 @@ class AnimalFactsViewModel @Inject constructor(
                         .collect { _catUser.value = it }
                 }
             }
-            return field
+            return _catUser.asStateFlow()
         }
 
 
