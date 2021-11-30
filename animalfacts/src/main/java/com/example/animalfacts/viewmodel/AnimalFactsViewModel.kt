@@ -16,6 +16,7 @@ import com.example.utility.coroutines.Data
 import com.example.utility.coroutines.FlowChannel
 import com.example.utility.coroutines.mapResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -31,7 +32,7 @@ class AnimalFactsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _animalFacts = MutableStateFlow<List<AnimalFact>>(emptyList())
-    val animalFacts = _animalFacts.asStateFlow()
+    val animalFacts: StateFlow<List<AnimalFact>> = _animalFacts.asStateFlow()
 
     private val _dogImages = MutableStateFlow<List<AnimalImage>>(emptyList())
     val dogImages: StateFlow<List<AnimalImage>>
@@ -72,7 +73,7 @@ class AnimalFactsViewModel @Inject constructor(
         Timber.d("Updating animal facts...")
         viewModelScope.launch {
 
-            val dogFacts = async {
+            val dogFacts: Deferred<List<AnimalFact>> = async {
                 try {
                     dogFactsRepository.getDogFacts(10)
                         .map { it.toAnimalFact() }

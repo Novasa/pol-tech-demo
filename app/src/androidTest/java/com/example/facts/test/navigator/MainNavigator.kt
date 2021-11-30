@@ -1,14 +1,10 @@
 package com.example.facts.test.navigator
 
 import androidx.annotation.StringRes
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.facts.R
-import org.hamcrest.core.AllOf
 import org.hamcrest.core.AllOf.allOf
 
 object MainNavigator {

@@ -112,6 +112,7 @@ class AnimalFactsUITests {
 
         // Custom view matcher to check for the view type
         onView(withType(EditText::class.java))
+            .check(matches(isDisplayed()))
             .inRoot(isDialog())
             .perform(click())
             .perform(typeText("New test name"))

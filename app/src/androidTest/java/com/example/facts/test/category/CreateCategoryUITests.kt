@@ -15,9 +15,7 @@ import com.example.facts.databinding.DataBindingComponentImplementation
 import com.example.facts.model.Category
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.slot
+import io.mockk.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
