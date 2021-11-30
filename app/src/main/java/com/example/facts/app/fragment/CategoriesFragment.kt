@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -18,13 +19,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.facts.R
+import com.example.facts.app.composables.CellCategory
 import com.example.facts.database.query.CategoryWithFacts
-import com.example.facts.databinding.CellCategoryBinding
+import com.example.facts.databinding.CellCategory2Binding
 import com.example.facts.databinding.CellFactBinding
 import com.example.facts.databinding.FragmentCategoriesBinding
 import com.example.facts.model.Category
@@ -164,28 +165,23 @@ class CategoriesFragment : Fragment() {
 
         override fun onCreateViewHolder(context: Context, parent: ViewGroup, viewType: Int) = LayoutInflater.from(parent.context).let { inflater ->
             when (viewType) {
-                ViewTypes.CATEGORY -> CategoryViewHolder(CellCategoryBinding.inflate(inflater, parent, false))
+                ViewTypes.CATEGORY -> CategoryViewHolder(CellCategory2Binding.inflate(inflater, parent, false))
                 ViewTypes.FACT -> FactViewHolder(CellFactBinding.inflate(inflater, parent, false))
                 else -> throw NotImplementedError()
             }
         }
 
-        override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-            super.onViewAttachedToWindow(holder)
-            (holder as? CategoryViewHolder)?.binding?.viewModel = viewModel
-        }
-
-        override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
-            (holder as? CategoryViewHolder)?.binding?.viewModel = null
-            super.onViewDetachedFromWindow(holder)
-        }
-
         /** Base ViewHolder class to minimize extensions */
         abstract class ViewHolder<TBinding : ViewDataBinding, TItem : AdapterItem>(override val binding: TBinding) : RecyclerView.ViewHolder(binding.root), BindingViewHolder<TBinding, TItem>
 
-        class CategoryViewHolder(binding: CellCategoryBinding) : ViewHolder<CellCategoryBinding, CategoryAdapterItem>(binding) {
-            override fun onBind(position: Int, binding: CellCategoryBinding, item: CategoryAdapterItem) {
-                binding.category = item.item.category
+        class CategoryViewHolder(binding: CellCategory2Binding) : ViewHolder<CellCategory2Binding, CategoryAdapterItem>(binding) {
+            override fun onBind(position: Int, binding: CellCategory2Binding, item: CategoryAdapterItem) {
+                binding.composeView.apply {
+                    setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                    setContent {
+                        CellCategory(category = item.item.category)
+                    }
+                }
             }
         }
 
