@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.25833333333333336" />
+        <entry key="../../../layout/compose-model-1638271699553.xml" value="0.25591216216216217" />
+        <entry key="../../../layout/compose-model-1638274309659.xml" value="0.33" />
         <entry key="../../.gradle/caches/transforms-3/57eeaa42be49ddcfba6325aa3552fe86/transformed/material-1.4.0/res/layout-land/material_timepicker.xml" value="0.518918918918919" />
         <entry key="..\:/Users/mikke/Documents/Workspace/AndroidStudio/pol-tech-demo/app/src/main/res/layout/cell_category.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/mikke/Documents/Workspace/AndroidStudio/pol-tech-demo/app/src/main/res/layout/fragment_create_fact.xml" value="0.19739583333333333" />
@@ -20,10 +22,12 @@
         <entry key="animalfacts/src/main/res/drawable/ic_dog.xml" value="0.15885416666666666" />
         <entry key="animalfacts/src/main/res/layout/cell_animal_fact.xml" value="0.31979166666666664" />
         <entry key="animalfacts/src/main/res/layout/cell_animal_image.xml" value="0.19722222222222222" />
-        <entry key="animalfacts/src/main/res/layout/fragment_animal_facts.xml" value="0.33541666666666664" />
+        <entry key="animalfacts/src/main/res/layout/fragment_animal_facts.xml" value="0.14270833333333333" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.42291666666666666" />
         <entry key="app/src/main/res/drawable/oval_accent.xml" value="0.5234375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1328125" />
         <entry key="app/src/main/res/layout/cell_category.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/cell_category_2.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/cell_category_header.xml" value="0.17592592592592593" />
         <entry key="app/src/main/res/layout/cell_fact.xml" value="0.2791666666666667" />
         <entry key="app/src/main/res/layout/cell_item.xml" value="0.5072916666666667" />
