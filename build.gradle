@@ -18,7 +18,8 @@ buildscript {
 }
 
 ext.versions = [
-        "dagger"    : "2.38.1",
+        "appcompat" : "1.4.0",
+        "dagger"    : "2.40.3",
         "room"      : "2.3.0",
         "lifecycle" : "2.4.0",
         "coroutines": "1.5.2",
@@ -29,7 +30,7 @@ ext.versions = [
         "espresso"  : "3.4.0",
         "mockk"     : "1.12.1",
 
-        "compose"          : "1.0.5",
+        "compose"   : "1.0.5",
 ]
 
 task clean(type: Delete) {

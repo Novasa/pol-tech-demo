@@ -25,19 +25,19 @@ class DogFactsServiceModule {
 
     @Singleton
     @Provides
-    fun provideDogFactsService(serviceFactory: ServiceFactory) : DogFactsService {
-        val config = ServiceConfig("https://dog-facts-api.herokuapp.com/api/v1/") {
+    fun provideDogFactsService(serviceFactory: ServiceFactory): DogFactsService {
+        val config = ServiceConfig.withBaseUrl<DogFactsService>("https://dog-facts-api.herokuapp.com/api/v1/") {
             json = {
                 ignoreUnknownKeys = false
             }
         }
-        return serviceFactory.createService(DogFactsService::class.java, config)
+        return serviceFactory.createService(config)
     }
 
     @Singleton
     @Provides
-    fun provideDogImageService(serviceFactory: ServiceFactory, dateTimeSerializer: DateTimeSerializer) : DogImageService {
-        val config = ServiceConfig("https://dog.ceo/api/") {
+    fun provideDogImageService(serviceFactory: ServiceFactory, dateTimeSerializer: DateTimeSerializer): DogImageService {
+        val config = ServiceConfig.withBaseUrl<DogImageService>("https://dog.ceo/api/") {
             logLevel = HttpLoggingInterceptor.Level.BASIC
 
             json = {
@@ -46,6 +46,6 @@ class DogFactsServiceModule {
                 }
             }
         }
-        return serviceFactory.createService(DogImageService::class.java, config)
+        return serviceFactory.createService(config)
     }
 }

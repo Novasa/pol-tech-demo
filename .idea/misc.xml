@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1638349714617.xml" value="0.3559966216216216" />
+        <entry key="../../../../layout/compose-model-1638350341980.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1638371476414.xml" value="0.1" />
         <entry key="../../../../layout/custom_preview.xml" value="0.25833333333333336" />
         <entry key="../../../layout/compose-model-1638271699553.xml" value="0.25591216216216217" />
         <entry key="../../../layout/compose-model-1638274309659.xml" value="0.33" />
@@ -27,6 +30,7 @@
         <entry key="app/src/main/res/drawable/oval_accent.xml" value="0.5234375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1328125" />
         <entry key="app/src/main/res/layout/cell_category.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/cell_category2.xml" value="0.49322916666666666" />
         <entry key="app/src/main/res/layout/cell_category_2.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/layout/cell_category_header.xml" value="0.17592592592592593" />
         <entry key="app/src/main/res/layout/cell_fact.xml" value="0.2791666666666667" />

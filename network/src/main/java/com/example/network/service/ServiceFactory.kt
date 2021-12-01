@@ -2,5 +2,5 @@ package com.example.network.service
 
 interface ServiceFactory {
 
-    fun <TService> createService(serviceClass: Class<TService>, config: ServiceConfig) : TService
+    fun <TService : Any> createService(config: ServiceConfig<TService>): TService
 }

@@ -21,7 +21,6 @@ class CatFactsServiceModule {
     @Singleton
     @Provides
     fun provideCatFactsService(serviceFactory: ServiceFactory): CatFactsService {
-        val config = ServiceConfig("https://catfact.ninja/")
-        return serviceFactory.createService(CatFactsService::class.java, config)
+        return serviceFactory.createService(ServiceConfig.withBaseUrl("https://catfact.ninja/"))
     }
 }
